@@ -1,4 +1,6 @@
-export const firebaseConfig = {
+import { FirebaseOptions } from '@angular/fire/app';
+
+export const firebaseConfig: FirebaseOptions = {
     apiKey: "AIzaSyADlnRpXNfPxrqtJmVzlY6NfDj8iBbQU3c",
     authDomain: "dota-builds-2.firebaseapp.com",
     projectId: "dota-builds-2",
