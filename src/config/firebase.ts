@@ -1,4 +1,4 @@
-const Config = {
+export const firebaseConfig = {
     apiKey: "AIzaSyADlnRpXNfPxrqtJmVzlY6NfDj8iBbQU3c",
     authDomain: "dota-builds-2.firebaseapp.com",
     projectId: "dota-builds-2",
