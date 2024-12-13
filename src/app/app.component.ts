@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { FirebaseService } from '../service/firebase/firebase.service';
+import { FirestoreService } from '../service/firebase/firestore.service';
 import { HeaderComponent } from '../components/header/header.component';
 import { FooterComponent } from '../components/footer/footer.component';
 import { Title } from '@angular/platform-browser';
@@ -17,7 +17,7 @@ export class AppComponent {
 
   constructor(
     private titleService: Title,
-    private service: FirebaseService
+    private service: FirestoreService
   ) { }
 
   ngOnInit(): void {

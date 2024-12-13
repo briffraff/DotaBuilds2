@@ -5,13 +5,15 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { getAuth, provideAuth } from '@angular/fire/auth'
+
 import { firebaseConfig } from '../config/firebase';
-import { FirebaseService } from '../service/firebase/firebase.service';
+import { FirestoreService } from '../service/firebase/firestore.service';
 import { CommonModule } from '@angular/common';
 
 @NgModule({
     declarations: [
-        
+
     ],
     imports: [
         BrowserModule,
@@ -19,9 +21,10 @@ import { CommonModule } from '@angular/common';
         CommonModule,
     ],
     providers: [
-        FirebaseService,
+        FirestoreService,
         provideFirebaseApp(() => initializeApp(firebaseConfig)),
-        provideFirestore(() => getFirestore())
+        provideFirestore(() => getFirestore()),
+        provideAuth(() => getAuth())
     ],
 })
 export class AppModule { }
