@@ -7,11 +7,13 @@ import { BuildCreatorComponent } from '../components/build-creator/build-creator
 import { ProfileComponent } from '../components/profile/profile.component';
 import { LoginComponent } from '../components/login/login.component';
 import { RegisterComponent } from '../components/register/register.component';
+import { HeroBuildsComponent } from '../components/hero-builds/hero-builds.component';
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'heroes', component: HeroesComponent },
     { path: 'items', component: ItemsComponent },
+    { path: 'builds', component: HeroBuildsComponent },
     { path: 'build-creator', component: BuildCreatorComponent },
     { path: 'profile', component: ProfileComponent },
     { path: 'login', component: LoginComponent },
