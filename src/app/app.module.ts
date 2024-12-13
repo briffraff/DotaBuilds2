@@ -7,7 +7,8 @@ import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { getAuth, provideAuth } from '@angular/fire/auth'
 
-import { firebaseConfig } from '../config/firebase';
+import { environment as devenv } from '../environments/environment.development';
+
 import { FirestoreService } from '../service/firebase/firestore.service';
 import { CommonModule } from '@angular/common';
 
@@ -18,11 +19,11 @@ import { CommonModule } from '@angular/common';
     imports: [
         BrowserModule,
         AppRoutingModule,
-        CommonModule,
+        CommonModule
     ],
     providers: [
         FirestoreService,
-        provideFirebaseApp(() => initializeApp(firebaseConfig)),
+        provideFirebaseApp(() => initializeApp(devenv.firebaseConfig)),
         provideFirestore(() => getFirestore()),
         provideAuth(() => getAuth())
     ],

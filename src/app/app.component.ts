@@ -1,9 +1,11 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { FirestoreService } from '../service/firebase/firestore.service';
-import { HeaderComponent } from '../components/header/header.component';
 import { FooterComponent } from '../components/footer/footer.component';
 import { Title } from '@angular/platform-browser';
+import { titles } from '../config/titles';
+import { FirestoreService } from '../service/firebase/firestore.service';
+import { FirebaseAuthService } from '../service/firebase/firebaseAuth.service';
+import { HeaderComponent } from '../components/header/header.component';
 
 @Component({
   selector: 'app-root',
@@ -13,22 +15,23 @@ import { Title } from '@angular/platform-browser';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = '';
+  user: any;
 
   constructor(
     private titleService: Title,
-    private service: FirestoreService
+    private firebaseAuthService: FirebaseAuthService,
+    private firestoreService: FirestoreService
   ) { }
 
   ngOnInit(): void {
-    this.getField("appName").subscribe((fieldName: string) => {
-      this.title = fieldName;
+    this.titleService.setTitle(titles.AppName);
+
+    this.firebaseAuthService.getCurrentUser().then(user => {
+      if (user) {
+        this.firestoreService.getUserData(user.uid).then(data => {
+          this.user = data;
+        })
+      }
     });
-
-    this.titleService.setTitle('DotaBuilds2');
-  }
-
-  getField(fieldName: string) {
-    return this.service.readFieldFromFirstDocument("constants", fieldName);
   }
 }

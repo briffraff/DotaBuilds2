@@ -1,4 +1,5 @@
 export interface Titles {
+    AppName: string,
     Register: string;
     Login: string;
     Home: string;
@@ -13,6 +14,7 @@ export interface Titles {
 }
 
 export const titles: Titles = {
+    AppName: 'DotaBuilds2',
     Register: 'Register Page',
     Login: 'Login Page',
     Home: 'Home Page',
