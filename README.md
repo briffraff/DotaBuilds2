@@ -2,82 +2,68 @@
 This is a school project in Angular. DotaBuilds2 is a place where you can create your own hero builds and find other user's hero builds.
 
 - [DotaBuilds2](#dotabuilds2)
-  - [Deploy address](#deploy-address)
   - [Demo Screenshots](#demo-screenshots)
   - [Build with](#build-with)
   - [Installation](#installation)
   - [Pre-seed data:](#pre-seed-data)
   - [Links](#links)
 
-## Deploy address 
-
-
 ## Demo Screenshots
+
+Header
+![Header](./public/readme/header.jpg)
+
+Footer
+![Footer](./public/readme/footer.jpg)
+
 GUESTS:
 
-Home + Footer
-![Home](./public/assets/img/readme/home.jpg)
+Home
+![Home](./public/readme/home.jpg)
 
 The Game
-![About](./public/assets/img/readme/about.jpg)
+![About](./public/readme/about.jpg)
 
-NBA Teams
-![NBA Teams](./public/assets/img/readme/teams.jpg)
+Dota Heroes
+![Dota heroes](./public/readme/heroes.jpg)
 
-Team Details
-![Team Details](./public/assets/img/readme/teamDetails.jpg)
+Hero Details
+![Hero Details](./public/readme/heroDetails.jpg)
+
+Dota Items
+![Dota items](./public/readme/items.jpg)
+
+Item Details
+![Item Details](./public/readme/itemDetails.jpg)
+
+Builds
+![Builds](./public/readme/builds.jpg)
+
+Build Details
+![Build Details](./public/readme/buildDetails.jpg)
 
 404 - Not Found
-![Not Found](./public/assets/img/readme/404.jpg)
+![Not Found](./public/readme/404.jpg)
 
 Register
-![Register](./public/assets/img/readme/register.jpg)
+![Register](./public/readme/register.jpg)
 
 Login
-![Login](./public/assets/img/readme/login.jpg)
+![Login](./public/readme/login.jpg)
 
 LOGGED USERS:
 
-Create Card
-![Create Card](./public/assets/img/readme/createCard.jpg)
+Create Build
+![Create Build](./public/readme/createBuild.jpg)
 
 User Profile
-![User Profile](./public/assets/img/readme/UserProfile.jpg)
+![User Profile](./public/readme/profile.jpg)
 
-Card Details
-![Card Details](./public/assets/img/readme/cardDetails.jpg)
-
-Edit Card
-![Edit Card](./public/assets/img/readme/editCard.jpg)
-
-Delete Card
-![Delete Card](./public/assets/img/readme/deleteCard.jpg)
-
-Cards Shop
-![Cards Shop](./public/assets/img/readme/cardsShop.jpg)
-
-Mini Cart and badge
-![Mini Cart and badge](./public/assets/img/readme/miniCartAndBadge.jpg)
-
-Cart
-![Cart](./public/assets/img/readme/cart.jpg)
-
-User Profile Delete
-![User Profile Delete](./public/assets/img/readme/UserProfileDelete.jpg)
-
-ADMIN :
-
-Admin profile
-![Admin profile](./public/assets/img/readme/adminProfile.jpg)
-
-Manage users
-![Manage users](./public/assets/img/readme/manageUsers.jpg)
-
-
-LOGGED USERS :
+Edit Delete Build
+![Edit Delete Build](./public/readme/editDeleteBuild.jpg)
 
 Logout
-![Logout](./public/assets/img/readme/logout.jpg)
+![Logout](./public/readme/logout.jpg)
 
 ## Build with 
 <img src="./public/readme/angular.svg" width="50px" height="50px">[Angular](https://angular.dev/)
