@@ -1,31 +1,34 @@
-<div class="auth-container">
-    <div class="left-section">
-        <img src="dota2-image.jpg" alt="Dota 2 Image">
-        <h1>Register</h1>
+<div class="center">
+    <div class="auth-container">
+        <div class="left-section">
+            <h1>Register</h1>
+        </div>
+        <div class="right-section">
+            <h1>Register</h1>
+
+            <form>
+                <div class="form-group">
+                    <input type="text" id="username" placeholder=" " required />
+                    <label for="username">Username</label>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="reg-email" placeholder=" " required />
+                    <label for="reg-email">Email</label>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="reg-password" placeholder=" " required />
+                    <label for="reg-password">Password</label>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="confirm-password" placeholder=" " required />
+                    <label for="confirm-password">Confirm Password</label>
+                </div>
+                <button type="submit">Register</button>
+            </form>
+            <p class="switch-link">
+                Already have an account? <a routerLink="/login">Login</a>
+            </p>
+        </div>
     </div>
-    <div class="right-section">
-        <h1>Register</h1>
-        <form>
-            <div class="form-group">
-                <input type="text" id="username" placeholder=" " required />
-                <label for="username">Username</label>
-            </div>
-            <div class="form-group">
-                <input type="email" id="reg-email" placeholder=" " required />
-                <label for="reg-email">Email</label>
-            </div>
-            <div class="form-group">
-                <input type="password" id="reg-password" placeholder=" " required />
-                <label for="reg-password">Password</label>
-            </div>
-            <div class="form-group">
-                <input type="password" id="confirm-password" placeholder=" " required />
-                <label for="confirm-password">Confirm Password</label>
-            </div>
-            <button type="submit">Register</button>
-        </form>
-        <p class="switch-link">
-            Already have an account? <a href="#">Login</a>
-        </p>
-    </div>
+
 </div>
