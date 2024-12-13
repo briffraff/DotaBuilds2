@@ -5,6 +5,8 @@ import { HeroesComponent } from '../components/heroes/heroes.component';
 import { ItemsComponent } from '../components/items/items.component';
 import { BuildCreatorComponent } from '../components/build-creator/build-creator.component';
 import { ProfileComponent } from '../components/profile/profile.component';
+import { LoginComponent } from '../components/login/login.component';
+import { RegisterComponent } from '../components/register/register.component';
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -12,6 +14,8 @@ const routes: Routes = [
     { path: 'items', component: ItemsComponent },
     { path: 'build-creator', component: BuildCreatorComponent },
     { path: 'profile', component: ProfileComponent },
+    { path: 'login', component: LoginComponent },
+    { path: 'register', component: RegisterComponent },
     { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 

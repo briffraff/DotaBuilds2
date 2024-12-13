@@ -1,0 +1,112 @@
+.auth-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+// html {
+//     margin: 0;
+//     font-family: "Arial", sans-serif;
+//     background: linear-gradient(135deg, #1f1f1f, #3a3a3a);
+//     color: #fff;
+//     height: 100vh;
+//     overflow: hidden;
+//     display: flex;
+//     flex-direction: row;
+// }
+
+.left-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+}
+.left-section img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+}
+.left-section h1 {
+    font-size: 3rem;
+    color: #ffffff;
+    text-transform: uppercase;
+}
+
+
+.right-section {
+    width: 30%;
+    background: rgba(0, 0, 0, 0.9);
+    border: 1px solid #444;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.right-section h1 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #f39c12;
+}
+.form-group {
+    position: relative;
+    margin-bottom: 20px;
+    width: 100%;
+}
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #444;
+    background: #2c2c2c;
+    color: #fff;
+    outline: none;
+    transition: border-color 0.3s;
+}
+.form-group input:focus {
+    border-color: #f39c12;
+}
+.form-group label {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    color: #888;
+    font-size: 1rem;
+    pointer-events: none;
+    transition: 0.3s ease;
+}
+.form-group input:focus + label,
+.form-group input:not(:placeholder-shown) + label {
+    top: -10px;
+    font-size: 0.8rem;
+    color: #f39c12;
+}
+button {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    color: #fff;
+    background: #f39c12;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+button:hover {
+    background: #e67e22;
+}
+.switch-link {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #888;
+}
+.switch-link a {
+    color: #f39c12;
+    text-decoration: none;
+}
+.switch-link a:hover {
+    text-decoration: underline;
+}

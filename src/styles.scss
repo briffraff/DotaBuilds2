@@ -1,6 +1,15 @@
-@import url('https://fonts.googleapis.com/css?family=Lato:400,700&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Lato:400,700&display=swap");
 
-*, *::before, *::after {
+@font-face {
+  font-family: "oldDota2";
+  src: url("../public/fonts/Trajan-Pro-Bold.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -9,8 +18,10 @@
   padding: 0;
 }
 
-html, body{
-      font-family: 'Lato', sans-serif;
+html,
+body {
+  font-family: "Lato", sans-serif;
+  color: white;
 }
 
 body {
@@ -18,17 +29,29 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-img, picture, video, canvas, svg {
+img,
+picture,
+video,
+canvas,
+svg {
   display: block;
   max-width: 100%;
 }
 
-input, button, textarea, select {
+input,
+button,
+textarea,
+select {
   font: inherit;
 }
 
-
-p, h1, h2, h3, h4, h5, h6 {
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   overflow-wrap: break-word;
 }
 
@@ -36,6 +59,11 @@ p {
   text-wrap: pretty;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   text-wrap: balance;
 }

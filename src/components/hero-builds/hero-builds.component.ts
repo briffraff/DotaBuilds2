@@ -4,20 +4,19 @@ import { Title } from '@angular/platform-browser';
 import { titles } from '../../config/titles';
 
 @Component({
-  selector: 'app-items',
+  selector: 'app-hero-builds',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './items.component.html',
-  styleUrl: './items.component.scss'
+  templateUrl: './hero-builds.component.html',
+  styleUrl: './hero-builds.component.scss'
 })
-export class ItemsComponent {
-  items = ['Blink Dagger', 'Black King Bar', 'Aghanim\'s Scepter'];
-
+export class HeroBuildsComponent {
+  builds = [];
   constructor(
     private titleService: Title
   ) { }
 
   ngOnInit(): void {
-    this.titleService.setTitle(titles.Items);
+    this.titleService.setTitle(titles.Builds);
   }
 }

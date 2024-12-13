@@ -1,0 +1,25 @@
+.footer {
+   background-color: rgb(19, 19, 19);
+}
+
+.footer-logo{
+    width: 250px;
+    margin: 0px 15px 20px;
+}
+
+.logo-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 50px 0px 0px 0px;
+}
+
+.footer-text{
+    padding:30px;
+    text-align: center;
+    font-size: 14px;
+    color: #777;
+    width: 60%;
+    margin: auto;
+    max-width: 500px;
+}
