@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { inject } from '@angular/core';
 import { addDoc, collection, getDocs, query, where, Firestore } from '@angular/fire/firestore';
 import { FirestoreService } from './firestore.service';
+import { signal } from '@angular/core';
 
 @Injectable({
     providedIn: 'root'
@@ -11,10 +12,10 @@ import { FirestoreService } from './firestore.service';
 export class FirebaseAuthService {
     currentUser: any = null;
     firestoreUserInfo: any = null;
+    private isAuth = signal(false);
 
     private auth = inject(Auth);
     private db = inject(Firestore);
-
 
     constructor(private router: Router, private firestoreService: FirestoreService) { }
 
@@ -74,8 +75,14 @@ export class FirebaseAuthService {
         try {
             const userCredentials = await signInWithEmailAndPassword(this.auth, email, password);
 
+            this.setAuthState(true);
+
             return userCredentials.user;
+
+
         } catch (error: any) {
+            this.setAuthState(false);
+
             let errorMessage = "";
             console.log(errorMessage);
             switch (error.message) {
@@ -106,24 +113,33 @@ export class FirebaseAuthService {
             console.log("Error signing out:", error.message);
             throw new Error("Error signing out");
         }
-
-        await signOut(this.auth);
         this.router.navigate(['/login']);
-    }
-
-    getCurrentUser() {
-        return this.currentUser;
+        this.setAuthState(false);
     }
 
     setUser(user: any) {
         this.currentUser = user;
     }
 
-    isAuthenticated(): boolean {
-        return this.currentUser !== null;
+    getCurrentUser() {
+        return this.currentUser;
+    }
+
+    setAuthState(status: boolean) {
+        if (this.currentUser !== null) {
+            this.isAuth.set(status);
+        }
+    }
+
+    isAuthenticated() {
+        return this.isAuth();
     }
 
     async setFirestoreUserInfo(userId: any) {
         this.firestoreUserInfo = await this.firestoreService.getFirestoreUserById(userId);
+    }
+
+    getFirestoreUserInfo() {
+        return this.firestoreUserInfo;
     }
 }

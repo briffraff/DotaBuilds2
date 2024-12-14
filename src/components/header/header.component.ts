@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component ,computed} from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FirestoreService } from '../../service/firebase/firestore.service';
 import { FirebaseAuthService } from '../../service/firebase/firebaseAuth.service';
@@ -13,21 +13,15 @@ import { FirebaseAuthService } from '../../service/firebase/firebaseAuth.service
 })
 export class HeaderComponent {
     menuOpen: boolean = false;
+    isAuthenticated = computed(() => this.authService.isAuthenticated())
 
-    constructor(
-        private firebaseAuthService: FirebaseAuthService,
-        private firestoreService: FirestoreService) { }
+    constructor(private authService: FirebaseAuthService) { }
 
     toggleMenu() {
         this.menuOpen = !this.menuOpen;
     }
 
-    logout() {
-        this.firebaseAuthService.logout().then(() => {
-            console.log("User logged out");
-        }).catch(error => {
-            console.log("Logout failed", error);
-        })
+    logout = () => {
+        this.authService.logout();
     }
-
 }
