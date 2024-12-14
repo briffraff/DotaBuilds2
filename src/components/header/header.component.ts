@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component ,computed} from '@angular/core';
+import { Component, computed } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { FirestoreService } from '../../service/firebase/firestore.service';
 import { FirebaseAuthService } from '../../service/firebase/firebaseAuth.service';
 
 @Component({
@@ -13,9 +12,13 @@ import { FirebaseAuthService } from '../../service/firebase/firebaseAuth.service
 })
 export class HeaderComponent {
     menuOpen: boolean = false;
-    isAuthenticated = computed(() => this.authService.isAuthenticated())
+    // isAuthenticated = computed(() => this.authService.isAuthenticated())
 
     constructor(private authService: FirebaseAuthService) { }
+
+    get isAuthenticated() {
+        return this.authService.isAuthenticated();
+    }
 
     toggleMenu() {
         this.menuOpen = !this.menuOpen;

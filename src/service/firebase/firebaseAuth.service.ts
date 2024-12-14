@@ -43,10 +43,11 @@ export class FirebaseAuthService {
             };
 
             await addDoc(userCollectionRef, updatedUserInfo);
-
+            this.setAuthState(true);
             return userCredentials.user;
 
         } catch (error: any) {
+            this.setAuthState(false);
             let errorMessage = "";
             switch (error.message) {
                 case "Firebase: Error (auth/missing-email).":
@@ -108,13 +109,13 @@ export class FirebaseAuthService {
     async logout(): Promise<void> {
         try {
             await signOut(this.auth);
+            this.setAuthState(false);
             console.log("User signed out successfully");
+            this.router.navigate(['/login']);
         } catch (error: any) {
             console.log("Error signing out:", error.message);
             throw new Error("Error signing out");
         }
-        this.router.navigate(['/login']);
-        this.setAuthState(false);
     }
 
     setUser(user: any) {
@@ -126,9 +127,7 @@ export class FirebaseAuthService {
     }
 
     setAuthState(status: boolean) {
-        if (this.currentUser !== null) {
-            this.isAuth.set(status);
-        }
+        this.isAuth.set(status);
     }
 
     isAuthenticated() {
