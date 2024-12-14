@@ -17,6 +17,8 @@ import { HeaderComponent } from '../components/header/header.component';
 export class AppComponent {
   user: any;
 
+  
+
   constructor(
     private titleService: Title,
     private firebaseAuthService: FirebaseAuthService,
@@ -28,9 +30,10 @@ export class AppComponent {
 
     this.firebaseAuthService.getCurrentUser().then(user => {
       if (user) {
-        this.firestoreService.getUserData(user.uid).then(data => {
-          this.user = data;
-        })
+        console.log(this.user);
+        // this.firestoreService.getUserData(user.uid).then(data => {
+        //   this.user = data;
+        // })
       }
     });
   }
