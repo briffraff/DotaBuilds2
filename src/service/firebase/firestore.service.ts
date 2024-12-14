@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { collection, collectionData, doc, Firestore, getDoc, setDoc } from '@angular/fire/firestore';
+import { collection, collectionData, doc, Firestore, getDoc, getDocs, query, setDoc, where } from '@angular/fire/firestore';
 import { map } from 'rxjs';
 
 @Injectable({
@@ -39,9 +39,23 @@ export class FirestoreService {
     return setDoc(userRef, userData);
   }
 
-  async getUserData(userId: string): Promise<any> {
-    const userRef = doc(this.firestore, 'users', userId);
-    const docSnapshot = await getDoc(userRef);
-    return docSnapshot.data();
-  }
+  getFirestoreUserById = async (userId: string) => {
+    try {
+      const q = query(collection(this.firestore, "users"), where("uid", "==", userId));
+      const querySnapshot = await getDocs(q);
+
+      if (querySnapshot.empty) {
+        let errorMessage = "No such user document!";
+        throw new Error(errorMessage);
+      } else {
+        const userDoc = querySnapshot.docs[0];
+        return userDoc.data();
+        // return { ...userDoc.data(), id: userDoc.id };
+      }
+    } catch (error) {
+      console.log("Error fetching user: ", error);
+      throw error;
+    }
+
+  };
 }

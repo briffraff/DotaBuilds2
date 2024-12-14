@@ -123,6 +123,7 @@
     color: #f39c12;
 }
 
+
 button {
     font-family: "oldDota2";
     width: 100%;
@@ -153,4 +154,11 @@ button:hover {
 
 .switch-link a:hover {
     text-decoration: underline;
+}
+
+.error-message {
+    color: #e74c3c; 
+    font-size: 0.9rem;
+    text-align: left;
+    margin-bottom: 10px;
 }

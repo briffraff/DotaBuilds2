@@ -1,23 +1,29 @@
 import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { titles } from '../../config/titles';
+import { FirebaseAuthService } from '../../service/firebase/firebaseAuth.service';
+import { FirestoreService } from '../../service/firebase/firestore.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-profile',
-  standalone: true,
-  imports: [],
-  templateUrl: './profile.component.html',
-  styleUrl: './profile.component.scss'
+    selector: 'app-profile',
+    standalone: true,
+    imports: [CommonModule],
+    templateUrl: './profile.component.html',
+    styleUrl: './profile.component.scss'
 })
 export class ProfileComponent {
-  username = 'Player1';
+   user:any
 
-  constructor(
-    private titleService: Title
-  ) { }
+    constructor(
+        private titleService: Title,
+        private authService: FirebaseAuthService,
+        private firestoreService: FirestoreService
+    ) { }
 
-  ngOnInit(): void {
-    this.titleService.setTitle(titles.Profile);
-  }
+    ngOnInit(): void {
+        this.titleService.setTitle(titles.Profile);
+        this.user = this.authService.firestoreUserInfo;
+    }
 }
 

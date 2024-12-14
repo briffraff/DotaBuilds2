@@ -4,12 +4,15 @@
             PROFILE
         </div>
         <div class="user-info">
-            <div>Username: <a class="user-info-values">asd</a></div>
-            <div>Email: <a class="user-info-values">asd&#64;abv.bg</a></div>
+            <div>Username: <a class="user-info-values">{{user?.username}}</a></div>
+            <div>Email: <a class="user-info-values">{{user?.email}}</a></div>
+            <div>Role: <a class="user-info-values">{{ user ? (user.admin == false ? "User" : "Admin") : "" }}</a></div>
+            <div>Player Position: <a class="user-info-values">{{user?.playerPosition}}</a></div>
         </div>
     </div>
     <div class="user-builds-topic">Your builds :</div>
+    
     <div class="user-builds">
-        <p class="no-builds">No builds found.</p>
+        <p *ngIf="!user?.createdBuilds?.length" class="no-builds">No builds found.</p>
     </div>
 </section>

@@ -1,25 +1,79 @@
 import { Injectable } from '@angular/core';
-import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, user } from '@angular/fire/auth';
+import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile, user, User } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { inject } from '@angular/core';
+import { addDoc, collection, getDocs, query, where, Firestore } from '@angular/fire/firestore';
+import { FirestoreService } from './firestore.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class FirebaseAuthService {
+    currentUser: any = null;
+    firestoreUserInfo: any = null;
 
     private auth = inject(Auth);
+    private db = inject(Firestore);
 
-    constructor(private router: Router) { }
 
-    async register(email: string, password: string): Promise<void> {
-        await createUserWithEmailAndPassword(this.auth, email, password);
-        this.router.navigate(['/home']);
+    constructor(private router: Router, private firestoreService: FirestoreService) { }
+
+    async register(username: string, email: string, password: string, playerPosition: string): Promise<User> {
+        try {
+            const userCredentials = await createUserWithEmailAndPassword(this.auth, email, password);
+
+            try {
+                await updateProfile(userCredentials.user, { displayName: username });
+            } catch (updateError) {
+                console.error("Failed to update user profile:", updateError);
+                throw new Error("Profile update failed.");
+            }
+
+            const userCollectionRef = collection(this.db, "users");
+
+            const updatedUserInfo = {
+                admin: false,
+                playerPosition: playerPosition,
+                email: email,
+                profilePictureUrl: "",
+                uid: userCredentials.user.uid,
+                username: username,
+                createdBuilds: [],
+            };
+
+            await addDoc(userCollectionRef, updatedUserInfo);
+
+            return userCredentials.user;
+
+        } catch (error: any) {
+            let errorMessage = "";
+            switch (error.message) {
+                case "Firebase: Error (auth/missing-email).":
+                    errorMessage = "Email cannot be empty";
+                    break;
+                case "Firebase: Error (auth/missing-password).":
+                    errorMessage = "Missing password";
+                    break;
+                case "Firebase: Error (auth/email-already-in-use).":
+                    errorMessage = "Email already in use";
+                    break;
+                case "Firebase: Error (auth/invalid-email).":
+                    errorMessage = "Invalid email address";
+                    break;
+                case "Firebase: Password should be at least 6 characters (auth/weak-password).":
+                    errorMessage = "Weak password";
+                    break;
+                default:
+                    errorMessage = error.message;
+            }
+            throw new Error(errorMessage);
+        }
     }
 
     async login(email: string, password: string): Promise<any> {
         try {
             const userCredentials = await signInWithEmailAndPassword(this.auth, email, password);
+
             return userCredentials.user;
         } catch (error: any) {
             let errorMessage = "";
@@ -57,7 +111,19 @@ export class FirebaseAuthService {
         this.router.navigate(['/login']);
     }
 
-    async getCurrentUser() {
-        return user(this.auth);
+    getCurrentUser() {
+        return this.currentUser;
+    }
+
+    setUser(user: any) {
+        this.currentUser = user;
+    }
+
+    isAuthenticated(): boolean {
+        return this.currentUser !== null;
+    }
+
+    async setFirestoreUserInfo(userId: any) {
+        this.firestoreUserInfo = await this.firestoreService.getFirestoreUserById(userId);
     }
 }
