@@ -20,6 +20,8 @@ export class LoginComponent {
     error: string = '';
     isSubmitting: boolean = false;
 
+    loginHeroImage = "/images/50380185ad778bf69a8d4bc62fd72e72.jpg";
+
     constructor(
         private titleService: Title,
         private authService: FirebaseAuthService,

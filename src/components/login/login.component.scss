@@ -34,7 +34,9 @@
     padding: 20px;
     position: relative;
     overflow: hidden;
-    background: url("../../../public/images/50380185ad778bf69a8d4bc62fd72e72.jpg") center/cover no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
     // filter: blur(2px);
 }
 
@@ -123,7 +125,6 @@
     color: #f39c12;
 }
 
-
 button {
     font-family: "oldDota2";
     width: 100%;
@@ -157,7 +158,7 @@ button:hover {
 }
 
 .error-message {
-    color: #e74c3c; 
+    color: #e74c3c;
     font-size: 0.9rem;
     text-align: left;
     margin-bottom: 10px;

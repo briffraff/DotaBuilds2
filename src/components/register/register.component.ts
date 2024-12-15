@@ -15,10 +15,11 @@ import { passwordMatchValidator } from '../../service/validators/password-match.
     styleUrl: './register.component.scss'
 })
 export class RegisterComponent {
-
     registerForm: FormGroup;
     error: string = '';
     isSubmitting: boolean = false;
+
+    loginHeroImage = "/images/50380185ad778bf69a8d4bc62fd72e72.jpg";
 
     constructor(
         private titleService: Title,
