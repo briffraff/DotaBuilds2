@@ -1,4 +1,51 @@
 <div class="home">
-    <h1>{{ title }}</h1>
-    <p>Create and share your ultimate builds for your favorite heroes.</p>
+    <div class="top-section" [ngStyle]="{ 'background-image': 'url(' + topSectionBg + ' ) ' }">
+        <div class="welcome">
+            <div class="welcome-text">
+                <h1>{{ welcome }}</h1>
+                <h1>to</h1>
+                <h1>{{ appName }}</h1>
+                <button class="get-start-button">Get Started Now</button>
+                <p class="home-description">Begin your journey in Dota Builds 2!</p>
+            </div>
+            <div class="home-slogan">
+                <h1>Create and share your custom builds for your favorite heroes !</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-section">
+        <section class="how-it-works">
+            <h2>How it Works</h2>
+            <p>Simply pick a hero, add items, and save your build.</p>
+        </section>
+    </div>
+
+    <h2 class="features-topic">Features</h2>
+
+    <div class="mid-section">
+        <section class="features">
+            <div class="feature" [ngStyle]="{ 'background-image': 'url(' + feature1Bg + ' ) ' }">
+                <h2>Custom Builds</h2>
+                <p>Explore endless possibilities by customizing your hero builds. Select your favorite heroes and
+                    craft
+                    tailored setups that suit your unique playstyle. Optimize your strategies by choosing the
+                    perfect
+                    combination of items and abilities for any game scenario.</p>
+            </div>
+            <div class="feature" [ngStyle]="{ 'background-image': 'url(' + feature2Bg + ' ) ' }">
+                <h2>Share Your Builds</h2>
+                <p>Unleash your creativity and connect with the community by sharing your custom builds. Show off your
+                    expertise, inspire other players, and receive feedback to refine your strategies. Sharing builds has
+                    never been this easy and exciting!</p>
+            </div>
+            <div class="feature" [ngStyle]="{ 'background-image': 'url(' + feature3Bg + ' ) ' }">
+                <h2>It’s your Notebook</h2>
+                <p>Never lose track of your best strategies again! Use our platform as your personal notebook to save
+                    and revisit your builds anytime. Quickly find the optimal setup for every hero, ensuring you're
+                    always prepared to dominate your games.</p>
+            </div>
+        </section>
+    </div>
+
 </div>

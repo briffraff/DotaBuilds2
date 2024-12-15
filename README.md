@@ -62,8 +62,6 @@ User Profile
 Edit Delete Build
 ![Edit Delete Build](./public/readme/editDeleteBuild.jpg)
 
-Logout
-![Logout](./public/readme/logout.jpg)
 
 ## Build with 
 <img src="./public/readme/angular.svg" width="50px" height="50px">[Angular](https://angular.dev/)
