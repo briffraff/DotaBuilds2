@@ -5,7 +5,8 @@
                 <h1>{{ welcome }}</h1>
                 <h1>to</h1>
                 <h1>{{ appName }}</h1>
-                <button class="get-start-button">Get Started Now</button>
+                <button [routerLink]="isAuthenticated ? '/build-creator' : '/login'" class="get-start-button"
+                    routerLink="/build-creator">Get Started Now</button>
                 <p class="home-description">Begin your journey in Dota Builds 2!</p>
             </div>
             <div class="home-slogan">

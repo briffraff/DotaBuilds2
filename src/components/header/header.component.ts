@@ -12,7 +12,6 @@ import { FirebaseAuthService } from '../../service/firebase/firebaseAuth.service
 })
 export class HeaderComponent {
     menuOpen: boolean = false;
-    // isAuthenticated = computed(() => this.authService.isAuthenticated())
 
     constructor(private authService: FirebaseAuthService) { }
 
