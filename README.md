@@ -21,8 +21,8 @@ GUESTS:
 Home
 ![Home](./public/readme/home.jpg)
 
-The Game
-![About](./public/readme/about.jpg)
+<!-- The Game
+![About](./public/readme/about.jpg) -->
 
 Dota Heroes
 ![Dota heroes](./public/readme/heroes.jpg)
