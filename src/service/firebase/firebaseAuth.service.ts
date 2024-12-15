@@ -43,7 +43,9 @@ export class FirebaseAuthService {
             };
 
             await addDoc(userCollectionRef, updatedUserInfo);
-            this.setAuthState(true);
+            await this.setAuthState(true);
+            await this.setUser(userCredentials.user);
+            await this.setFirestoreUserInfo(userCredentials.user.uid);
             return userCredentials.user;
 
         } catch (error: any) {
@@ -76,8 +78,9 @@ export class FirebaseAuthService {
         try {
             const userCredentials = await signInWithEmailAndPassword(this.auth, email, password);
 
-            this.setAuthState(true);
-
+            await this.setAuthState(true);
+            await this.setUser(userCredentials.user);
+            await this.setFirestoreUserInfo(userCredentials.user.uid);
             return userCredentials.user;
 
 
@@ -110,6 +113,8 @@ export class FirebaseAuthService {
         try {
             await signOut(this.auth);
             this.setAuthState(false);
+            this.firestoreUserInfo = '';
+            this.currentUser = null;
             console.log("User signed out successfully");
             this.router.navigate(['/login']);
         } catch (error: any) {

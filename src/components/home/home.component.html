@@ -7,7 +7,12 @@
                 <h1>{{ appName }}</h1>
                 <button [routerLink]="isAuthenticated ? '/build-creator' : '/login'" class="get-start-button"
                     routerLink="/build-creator">Get Started Now</button>
-                <p class="home-description">Begin your journey in Dota Builds 2!</p>
+                <p class="home-description">
+                    Hey <span [class]="user ? 'username-highlight' : 'guest-highlight'">
+                        {{ user ? user.username : 'Guest' }}
+                    </span>, let's begin your journey in Dota Builds 2!
+                </p>
+
             </div>
             <div class="home-slogan">
                 <h1>Create and share your custom builds for your favorite heroes !</h1>

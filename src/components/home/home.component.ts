@@ -4,6 +4,7 @@ import { titles } from '../../config/titles';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FirebaseAuthService } from '../../service/firebase/firebaseAuth.service';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -21,14 +22,17 @@ export class HomeComponent {
   feature2Bg = '/images/f2.jpg';
   feature3Bg = '/images/f3.jpg';
 
+  user: any;
+
   constructor(
     private titleService: Title,
-    private authService: FirebaseAuthService
+    private authService: FirebaseAuthService,
   ) { }
 
   ngOnInit(): void {
     this.titleService.setTitle(titles.Home);
-    this.authService.currentUser;
+    this.user = this.authService.firestoreUserInfo;
+    console.log(this.user);
   }
 
   get isAuthenticated() {
