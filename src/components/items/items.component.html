@@ -1,6 +1,14 @@
 <div class="items">
-    <h2>Items</h2>
-    <ul>
-        <li *ngFor="let item of items">{{ item }}</li>
-    </ul>
+    <h2 class="items-title">Items</h2>
+
+    <div class="found-items" *ngIf="items && items.length > 0">
+        <div class="item-thumb" *ngFor="let item of items">
+            <img class="item-image" [src]="getItemImage(item.img)" alt="{{ item.dname }}" />
+            <p>{{ item.dname }}</p>
+        </div>
+    </div>
+
+    <div>
+        <p *ngIf="!items || !items.length" class="no-item">No items found.</p>
+    </div>
 </div>

@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 import { LoginComponent } from '../components/login/login.component';
 import { RegisterComponent } from '../components/register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { provideHttpClient } from '@angular/common/http';
 
 @NgModule({
     declarations: [
@@ -29,7 +30,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     providers: [
         provideFirebaseApp(() => initializeApp(devenv.firebaseConfig)),
         provideFirestore(() => getFirestore()),
-        provideAuth(() => getAuth())
+        provideAuth(() => getAuth()),
+        provideHttpClient()
     ],
 })
 export class AppModule { }
