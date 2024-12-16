@@ -1,0 +1,289 @@
+.hero-details {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 50px;
+    background: #1b1b1b;
+    border-radius: 2px;
+    font-size: 1.1em;
+    color: whitesmoke;
+}
+
+.hero-topics {
+    font-family: "oldDota2";
+    color: #3498db;
+    margin-bottom: 10px;
+    font-size: 1.3em;
+}
+
+.value {
+    color: #3498db;
+    margin-left: 5px;
+}
+
+.hero-header {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+}
+
+.hero-profile {
+    width: 50%;
+    padding: 20px;
+}
+
+.hero-profile p {
+    padding-top: 20px;
+}
+
+.iconic {
+    display: flex;
+    flex-direction: row;
+}
+
+.iconic img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.hero-name {
+    font-family: "oldDota2";
+    font-weight: bold;
+    font-size: 5em;
+    color: #e4e4e4;
+    margin-left: 20px;
+}
+
+.hero-image {
+    border-radius: 25px;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.hero-lore {
+    width: 50%;
+    padding: 20px;
+}
+
+.hero-lore h3 {
+    font-family: "oldDota2";
+    color: #3498db;
+    margin-bottom: 10px;
+}
+
+.hero-lore p {
+    color: #c2c2c2;
+}
+
+.hero-main-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.hero-stats,
+.hero-roles {
+    flex: 1;
+    margin: 0 10px;
+}
+
+.hero-stats ul,
+.hero-roles ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.hero-stats li,
+.hero-roles li {
+    margin: 5px 0;
+}
+
+.hero-secondary-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.hero-attributes,
+.hero-mobility {
+    flex: 1;
+    margin: 0 10px;
+}
+
+.hero-attributes ul,
+.hero-mobility ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.hero-attributes li,
+.hero-mobility li {
+    margin: 5px 0;
+}
+
+.hero-skills {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+    width: 50%;
+}
+
+.skill {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #1f1f1f;
+    border-radius: 6px;
+}
+
+.skill img {
+    width: 50px;
+    height: 50px;
+    margin-right: 15px;
+}
+
+.skill h3 {
+    margin: 0;
+}
+
+
+.abilities {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    padding-left: 20px; 
+}
+
+.primary {
+    margin-top: 20px;
+}
+
+.image-container {
+    position: relative;
+    display: inline-block;
+}
+
+.icon {
+    max-width: 200px;
+    height: auto;
+    cursor: pointer;
+}
+
+.tooltip {
+    display: none;
+    position: absolute;
+    bottom: 110%;
+    left: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    white-space: nowrap;
+    text-align: center;
+    pointer-events: none;
+    transform: translate(0, -10px);
+}
+
+.image-container:hover .tooltip {
+    display: block;
+    width: 500px;
+}
+
+.image-container:hover .tooltip {
+    left: 50%;
+    transform: translateX(-50%) translateY(-10px);
+}
+
+.image-container:hover .tooltip {
+    left: 10px;
+    right: auto;
+    transform: translateX(0) translateY(-10px);
+}
+
+.image-container:hover .tooltip {
+    max-width: calc(100vw - 20px);
+}
+
+.health {
+    display: flex;
+    align-items: center;
+}
+
+.health-box {
+    width: 24px;
+    height: 24px;
+    background: linear-gradient(225deg, #df2707, #000000);
+    margin-right: 10px;
+    border-radius: 50%;
+    margin-right: 16px;
+}
+
+.mana {
+    display: flex;
+    align-items: center;
+}
+
+.mana-box {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: linear-gradient(225deg, #0099ff, #000000);
+    margin-right: 16px;
+}
+
+@media (max-width: 768px) {
+    .hero-main-info,
+    .hero-secondary-info {
+        flex-direction: column;
+    }
+
+    .hero-stats,
+    .hero-roles,
+    .hero-attributes,
+    .hero-mobility {
+        margin: 10px 0;
+    }
+
+    .abilities {
+        width: 100%;
+        padding-left: 0;
+    }
+
+    .hero-header {
+        flex-direction: column;
+    }
+
+    .hero-profile,
+    .hero-lore {
+        width: 100%;
+    }
+
+    .hero-name {
+        font-size: 3em;
+    }
+
+    .hero-skills {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .skill {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .tooltip {
+        font-size: 0.9em; 
+        padding: 8px;
+    }
+}

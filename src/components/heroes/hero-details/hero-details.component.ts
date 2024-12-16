@@ -16,14 +16,13 @@ import { CommonModule } from '@angular/common';
 export class HeroDetailsComponent {
   hero: Hero | undefined;
   heroLore: string = '';
-  heroAbilities: string[] = []
-  heroFacets: string[] = []
+  heroAbilities: any = [];
 
   constructor(
     private titleService: Title,
     private route: ActivatedRoute,
     private dotaService: DotaService
-  ) { }
+  ) { };
 
   ngOnInit(): void {
     this.titleService.setTitle(titles.HeroDetails);
@@ -38,11 +37,9 @@ export class HeroDetailsComponent {
         const heroName: string | undefined = data?.name;
 
         if (heroName) {
-          this.dotaService.getHeroAbilities(heroName).subscribe(abilities => {
-            this.heroAbilities = [abilities[0]];
-            this.heroFacets = [abilities[2]]
-            // console.log(this.heroAbilities);
-            // console.log(this.heroFacets);
+          this.dotaService.getHeroAbilities(heroName).subscribe(data => {
+            this.heroAbilities = data;
+            console.log(this.heroAbilities);
           })
 
           this.dotaService.getHeroLore(heroName).subscribe(lore => {
@@ -54,7 +51,49 @@ export class HeroDetailsComponent {
     }
   }
 
+  setIcons() {
+    const cdnPath = `${this.dotaService.cdnAkamaiUrlWeb}/apps/dota2/images/dota_react`;
+
+    const Icons = {
+      hero_str: `${cdnPath}/icons/hero_strength.png`,
+      hero_int: `${cdnPath}/icons/hero_intelligence.png`,
+      hero_agi: `${cdnPath}/icons/hero_agility.png`,
+      hero_damage: `${cdnPath}/heroes/stats/icon_damage.png`,
+      attack_time: `${cdnPath}/heroes/stats/icon_attack_time.png`,
+      hero_attack_range: `${cdnPath}/heroes/stats/icon_attack_range.png`,
+      hero_proj_speed: `${cdnPath}/heroes/stats/icon_projectile_speed.png`,
+      hero_armor: `${cdnPath}/heroes/stats/icon_armor.png`,
+      hero_magic_resist: `${cdnPath}/heroes/stats/icon_magic_resist.png`,
+      hero_move_speed: `${cdnPath}/heroes/stats/icon_movement_speed.png`,
+      hero_turn_rate: `${cdnPath}/heroes/stats/icon_turn_rate.png`,
+      hero_vision: `${cdnPath}/heroes/stats/icon_vision.png`,
+    };
+
+    return Icons;
+  }
+
   getHeroImage(name: string): string {
     return this.dotaService.getHeroImage(name)
   }
+
+  setAbilityImage(imgUrl: string): string {
+    return this.dotaService.getItemImage(imgUrl);
+  }
+
+  modifyPrimaryAttribute(attribute: string) {
+    const iconsPath = '/apps/dota2/images/dota_react/icons';
+    const fullAttributes: { [key: string]: { name: string; image: string } } = {
+      str: { name: "Strength", image: `${this.dotaService.cdnAkamaiUrlWeb}${iconsPath}/hero_strength.png` },
+      int: { name: "Intelligence", image: `${this.dotaService.cdnAkamaiUrlWeb}${iconsPath}/hero_intelligence.png` },
+      agi: { name: "Agility", image: `${this.dotaService.cdnAkamaiUrlWeb}${iconsPath}/hero_agility.png` },
+      all: { name: "Universal", image: `${this.dotaService.cdnAkamaiUrlWeb}${iconsPath}/hero_universal.png` },
+    };
+
+    if (!attribute || !fullAttributes[attribute]) {
+      return;
+    }
+
+    return fullAttributes[attribute];
+  }
+
 }

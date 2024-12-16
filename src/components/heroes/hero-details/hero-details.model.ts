@@ -35,8 +35,9 @@ export interface Hero {
 }
 
 export interface Abilities {
-    name: string
+    dname: string
+    desc: string
+    codeName: string
     behavior: string,
-    description: string,
     img: string
 }

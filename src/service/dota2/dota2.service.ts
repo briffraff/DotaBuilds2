@@ -5,20 +5,22 @@ import { inject } from '@angular/core';
 import { addDoc, collection, getDocs, query, where, Firestore } from '@angular/fire/firestore';
 import { signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
-import { Hero } from '../../components/heroes/hero-details/hero-details.model';
+import { forkJoin, map, Observable } from 'rxjs';
+import { Abilities, Hero } from '../../components/heroes/hero-details/hero-details.model';
 
 @Injectable({
     providedIn: 'root',
 })
 export class DotaService {
-    private apiUrl = 'https://api.opendota.com/api';
-    private cdnCloudflareUrl = 'https://cdn.cloudflare.steamstatic.com';
-    private cdnAkamaiUrl = 'https://steamcdn-a.akamaihd.net';
+    apiUrl = 'https://api.opendota.com/api';
+    cdnCloudflareUrl = 'https://cdn.cloudflare.steamstatic.com';
+    cdnAkamaiUrl = 'https://steamcdn-a.akamaihd.net';
+    cdnAkamaiUrlWeb = 'https://cdn.akamai.steamstatic.com';
     private heroesPath = '/constants/heroes';
     private loresPath = '/constants/hero_lore';
     private itemsPath = '/constants/items';
-    private heroAbilitiesPath = '/constants/hero_abilities';
+    private heroAbilitiesListPath = '/constants/hero_abilities';
+    private heroAbilities = '/constants/abilities';
 
     constructor(private http: HttpClient) { }
 
@@ -50,17 +52,41 @@ export class DotaService {
         );
     }
 
-    getHeroAbilities(heroName: string): Observable<string[]> {
-        const abilities = `${this.apiUrl}${this.heroAbilitiesPath}`;
-        return this.http.get<{ [key: string]: string[] }>(abilities).pipe(
-            map(lores => {
-                return Object.values(lores[heroName]);
+    getHeroAbilities(heroName: string): Observable<Abilities[]> {
+        const abilitiesListPath = `${this.apiUrl}${this.heroAbilitiesListPath}`;
+        const fullAbilitiesPath = `${this.apiUrl}${this.heroAbilities}`;
+
+        return forkJoin({
+            heroAbilities: this.http.get<{ [key: string]: any }>(abilitiesListPath),
+            allAbilities: this.http.get<{ [key: string]: Abilities }>(fullAbilitiesPath)
+        }).pipe(
+            map(({ heroAbilities, allAbilities }) => {
+
+                const heroAbilitiesNames = heroAbilities[heroName]?.abilities || [];
+
+                return heroAbilitiesNames
+                    .map((codeName: string) => {
+                        const ability = allAbilities[codeName];
+                        
+                        if (ability) {
+                            return {
+                                codeName: codeName,
+                                name: ability.dname,
+                                behavior: ability.behavior,
+                                description: ability.desc,
+                                img: ability.img
+                            } as unknown as Abilities;
+                        }
+                        return null;
+                    })
+                    // .filter((ability): ability is Abilities => ability !== null);
             })
         );
     }
 
-
-
+    isAbility(data: any): data is Abilities {
+        return data && typeof data.name === 'string' && typeof data.img === 'string';
+    }
 
     private getHeroImageCdnUrl(cdnProvider: 'cloudflare' | 'akamaihd', heroName: string): string {
         const cdnUrls = {
