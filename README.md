@@ -21,14 +21,12 @@ GUESTS:
 Home
 ![Home](./public/readme/home.jpg)
 
-<!-- The Game
-![About](./public/readme/about.jpg) -->
-
 Dota Heroes
 ![Dota heroes](./public/readme/heroes.jpg)
 
 Hero Details
 ![Hero Details](./public/readme/heroDetails.jpg)
+
 
 Dota Items
 ![Dota items](./public/readme/items.jpg)
@@ -41,6 +39,12 @@ Builds
 
 Build Details
 ![Build Details](./public/readme/buildDetails.jpg)
+
+No items
+![No Items](./public/readme/no-items.jpg)
+
+No heroes
+![No Heroes](./public/readme/no-heroes.jpg)
 
 404 - Not Found
 ![Not Found](./public/readme/404.jpg)

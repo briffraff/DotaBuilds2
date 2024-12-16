@@ -9,17 +9,23 @@ import { LoginComponent } from '../components/login/login.component';
 import { RegisterComponent } from '../components/register/register.component';
 import { HeroBuildsComponent } from '../components/hero-builds/hero-builds.component';
 import { NotFoundComponent } from '../components/not-found/not-found.component';
+import { HeroDetailsComponent } from '../components/heroes/hero-details/hero-details.component';
+import { ItemDetailsComponent } from '../components/items/item-details/item-details.component';
+import { BuildDetailsComponent } from '../components/hero-builds/build-details/build-details.component';
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'heroes', component: HeroesComponent },
+    { path: 'heroes/:id', component: HeroDetailsComponent },
     { path: 'items', component: ItemsComponent },
+    { path: 'items/:id', component: ItemDetailsComponent },
     { path: 'builds', component: HeroBuildsComponent },
+    { path: 'builds/:id', component: BuildDetailsComponent },
     { path: 'build-creator', component: BuildCreatorComponent },
     { path: 'profile', component: ProfileComponent },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
-    { path: '**', component:NotFoundComponent }
+    { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({

@@ -1,1 +1,65 @@
-<p>hero-details works!</p>
+<div *ngIf="hero" class="hero-details">
+    <div class="hero-header">
+        <h2 class="hero-name">{{ hero.localized_name }}</h2>
+        <img [src]="getHeroImage(hero.name)" alt="{{ hero.name }}" class="hero-image" />
+    </div>
+
+    <div class="hero-main-info">
+        <div class="hero-stats">
+            <h3>Stats</h3>
+            <ul>
+                <li><strong>Primary Attribute:</strong> {{ hero.primary_attr }}</li>
+                <li><strong>Base Health:</strong> {{ hero.base_health }} + {{ hero.base_health_regen }}</li>
+                <li><strong>Base Mana:</strong> {{ hero.base_mana }} + {{ hero.base_mana_regen }}</li>
+                <li><strong>Attack Damage:</strong> {{ hero.base_attack_min }} - {{ hero.base_attack_max }}</li>
+                <li><strong>Attack Range:</strong> {{ hero.attack_range }}</li>
+                <li><strong>Attack Rate:</strong> {{ hero.attack_rate }}</li>
+                <li><strong>Armor:</strong> {{ hero.base_armor }}</li>
+            </ul>
+        </div>
+
+        <div class="hero-roles">
+            <h3>Roles</h3>
+            <ul>
+                <li *ngFor="let role of hero.roles">{{ role }}</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="hero-secondary-info">
+        <div class="hero-attributes">
+            <h3>Attributes</h3>
+            <ul>
+                <li><strong>Strength:</strong> {{ hero.base_str }} + {{ hero.str_gain }}</li>
+                <li><strong>Agility:</strong> {{ hero.base_agi }} + {{ hero.agi_gain }}</li>
+                <li><strong>Intelligence:</strong> {{ hero.base_int }} + {{ hero.int_gain }}</li>
+            </ul>
+        </div>
+        <div class="hero-mobility">
+            <h3>Mobility</h3>
+            <ul>
+                <li><strong>Move Speed:</strong> {{ hero.move_speed }}</li>
+                <li><strong>Legs:</strong> {{ hero.legs }}</li>
+                <li><strong>Day Vision:</strong> {{ hero.day_vision }}</li>
+                <li><strong>Night Vision:</strong> {{ hero.night_vision }}</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="hero-skills">
+        <h3>Abilities</h3>
+        <div *ngFor="let skill of heroAbilities" class="skill">
+            <!-- <img [src]="skill.icon" alt="{{ skill.name }} icon" /> -->
+            <div>
+                <h3>{{skill}}</h3>
+                <!-- <h4>{{ skill.name }}</h4>
+                <p>{{ skill.description }}</p> -->
+            </div>
+        </div>
+    </div>
+
+    <div class="hero-lore">
+        <h3>Lore</h3>
+        <p>{{ heroLore }}</p>
+    </div>
+</div>

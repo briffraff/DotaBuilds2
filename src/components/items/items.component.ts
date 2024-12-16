@@ -28,7 +28,7 @@ export class ItemsComponent {
       } else {
         this.items = [];
       }
-      console.log(this.items);
+      // console.log(this.items);
     });
   }
 
