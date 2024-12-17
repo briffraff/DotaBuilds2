@@ -8,6 +8,22 @@ import { HttpClient } from '@angular/common/http';
 import { forkJoin, map, Observable } from 'rxjs';
 import { Abilities, Hero } from '../../components/heroes/hero-details/hero-details.model';
 
+export enum PlayerPosition {
+    Carry = 1,
+    Mid = 2,
+    Offlaner = 3,
+    SoftSupport = 4,
+    HardSupport = 5
+}
+
+const PlayerPositionDescriptions: { [key: number]: string } = {
+    1: 'Carry',
+    2: 'Mid',
+    3: 'Offlaner',
+    4: 'Soft Support',
+    5: 'Hard Support'
+};
+
 @Injectable({
     providedIn: 'root',
 })
@@ -67,7 +83,7 @@ export class DotaService {
                 return heroAbilitiesNames
                     .map((codeName: string) => {
                         const ability = allAbilities[codeName];
-                        
+
                         if (ability) {
                             return {
                                 codeName: codeName,
@@ -79,7 +95,7 @@ export class DotaService {
                         }
                         return null;
                     })
-                    // .filter((ability): ability is Abilities => ability !== null);
+                // .filter((ability): ability is Abilities => ability !== null);
             })
         );
     }
@@ -103,5 +119,14 @@ export class DotaService {
 
     getItemImage(imgUrl: string): string {
         return `${this.cdnCloudflareUrl}${imgUrl}`;
+    }
+
+    getPositions() {
+        const positions = Object.keys(PlayerPositionDescriptions).map(key => ({
+            id: Number(key),
+            desc: PlayerPositionDescriptions[Number(key)]
+        }));
+        
+        return positions;
     }
 }

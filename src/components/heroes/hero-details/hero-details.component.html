@@ -11,6 +11,14 @@
                 <a class="value"> {{ modifyPrimaryAttribute(hero.primary_attr)?.name }}</a>
             </p>
 
+            <div class="attack-type">
+                <p class="hero-topics">Attack type</p>
+                <div class="iconic">
+                    <img src="{{modifyAttackType(hero.attack_type)?.image}}" alt="">
+                    <a> {{hero.attack_type}}</a>
+                </div>
+            </div>
+
             <div class="abilities">
                 <h3 class="hero-topics">Abilities</h3>
                 <div class="hero-skills">

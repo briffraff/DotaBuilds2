@@ -25,7 +25,7 @@ Dota Heroes
 ![Dota heroes](./public/readme/heroes.jpg)
 
 Hero Details
-![Hero Details](./public/readme/heroDetails.jpg)
+![Hero Details](./public/readme/hero-details.jpg)
 
 
 Dota Items

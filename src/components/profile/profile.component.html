@@ -7,7 +7,7 @@
             <div>Username: <a class="user-info-values">{{user?.username}}</a></div>
             <div>Email: <a class="user-info-values">{{user?.email}}</a></div>
             <div>Role: <a class="user-info-values">{{ user ? (user.admin == false ? "User" : "Admin") : "" }}</a></div>
-            <div>Player Position: <a class="user-info-values">{{user?.playerPosition}}</a></div>
+            <div>Player Position: <a class="user-info-values">{{setPlayerPositionInfo()}}</a></div>
         </div>
     </div>
     <div class="user-builds-topic">Your builds :</div>

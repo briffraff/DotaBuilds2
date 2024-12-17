@@ -41,3 +41,5 @@ export interface Abilities {
     behavior: string,
     img: string
 }
+
+

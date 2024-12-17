@@ -39,7 +39,7 @@ export class HeroDetailsComponent {
         if (heroName) {
           this.dotaService.getHeroAbilities(heroName).subscribe(data => {
             this.heroAbilities = data;
-            console.log(this.heroAbilities);
+            // console.log(this.heroAbilities);
           })
 
           this.dotaService.getHeroLore(heroName).subscribe(lore => {
@@ -82,18 +82,32 @@ export class HeroDetailsComponent {
 
   modifyPrimaryAttribute(attribute: string) {
     const iconsPath = '/apps/dota2/images/dota_react/icons';
-    const fullAttributes: { [key: string]: { name: string; image: string } } = {
+    const icons: { [key: string]: { name: string; image: string } } = {
       str: { name: "Strength", image: `${this.dotaService.cdnAkamaiUrlWeb}${iconsPath}/hero_strength.png` },
       int: { name: "Intelligence", image: `${this.dotaService.cdnAkamaiUrlWeb}${iconsPath}/hero_intelligence.png` },
       agi: { name: "Agility", image: `${this.dotaService.cdnAkamaiUrlWeb}${iconsPath}/hero_agility.png` },
       all: { name: "Universal", image: `${this.dotaService.cdnAkamaiUrlWeb}${iconsPath}/hero_universal.png` },
     };
 
-    if (!attribute || !fullAttributes[attribute]) {
+    if (!attribute || !icons[attribute]) {
       return;
     }
 
-    return fullAttributes[attribute];
+    return icons[attribute];
+  }
+
+  modifyAttackType(atackType: string) {
+    const iconsPath = '/apps/dota2/images/dota_react/icons';
+    const icons: { [key: string]: { name: string; image: string } } = {
+      Melee: { name: "Melee", image: `${this.dotaService.cdnAkamaiUrlWeb}${iconsPath}/melee.svg` },
+      Ranged: { name: "Ranged", image: `${this.dotaService.cdnAkamaiUrlWeb}${iconsPath}/ranged.svg` },
+    };
+
+    if (!atackType || !icons[atackType]) {
+      return;
+    }
+
+    return icons[atackType];
   }
 
 }

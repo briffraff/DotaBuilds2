@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { FirebaseAuthService } from '../../service/firebase/firebaseAuth.service';
 import { CommonModule } from '@angular/common';
 import { passwordMatchValidator } from '../../service/validators/password-match.validator';
+import { DotaService } from '../../service/dota2/dota2.service';
 
 @Component({
     selector: 'app-register',
@@ -14,16 +15,18 @@ import { passwordMatchValidator } from '../../service/validators/password-match.
     templateUrl: './register.component.html',
     styleUrl: './register.component.scss'
 })
+
 export class RegisterComponent {
     registerForm: FormGroup;
     error: string = '';
     isSubmitting: boolean = false;
-
+    playerPositions: any = [];
     loginHeroImage = "/images/50380185ad778bf69a8d4bc62fd72e72.jpg";
 
     constructor(
         private titleService: Title,
         private authService: FirebaseAuthService,
+        private dotaService: DotaService,
         private fb: FormBuilder,
         private router: Router
     ) {
@@ -40,6 +43,7 @@ export class RegisterComponent {
     }
 
     ngOnInit(): void {
+        this.playerPositions = this.dotaService.getPositions();
         this.titleService.setTitle(titles.Register);
     }
 
@@ -69,7 +73,6 @@ export class RegisterComponent {
         } finally {
             this.isSubmitting = false;
         }
-
     }
 }
 

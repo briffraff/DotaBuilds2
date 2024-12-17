@@ -7,6 +7,7 @@
             <h1>Register</h1>
 
             <form [formGroup]="registerForm" (ngSubmit)="handleRegister()">
+
                 <div class="form-group">
                     <input type="text" id="username" formControlName="username" placeholder=" " required />
                     <label for="username">Username</label>
@@ -17,6 +18,7 @@
                             characters</small>
                     </div>
                 </div>
+
                 <div class="form-group">
                     <input type="email" id="email" formControlName="email" placeholder=" " required />
                     <label for="email">Email</label>
@@ -25,10 +27,18 @@
                         <small *ngIf="registerForm.get('email')?.errors?.['email']">Invalid email</small>
                     </div>
                 </div>
+
                 <div class="form-group">
-                    <input type="playerPosition" id="playerPosition" formControlName="playerPosition" placeholder=" " required />
-                    <label for="playerPosition">Player Position</label>
+                    <label for="playerPosition" [ngClass]="{'hidden': registerForm.get('playerPosition')?.value}">
+                        Player Position
+                    </label>
+                    <select name="playerPosition" id="playerPosition" formControlName="playerPosition">
+                        <option *ngFor="let playerPosition of playerPositions" [value]="playerPosition.id">
+                            {{ playerPosition.desc }}
+                        </option>
+                    </select>
                 </div>
+
                 <div class="form-group">
                     <input type="password" id="password" formControlName="password" placeholder=" " required />
                     <label for="password">Password</label>
@@ -38,6 +48,7 @@
                             characters.</small>
                     </div>
                 </div>
+
                 <div class="form-group">
                     <input type="password" id="repass" formControlName="repass" placeholder=" " required />
                     <label for="repass">Confirm Password</label>
@@ -59,5 +70,4 @@
             </p>
         </div>
     </div>
-
 </div>
