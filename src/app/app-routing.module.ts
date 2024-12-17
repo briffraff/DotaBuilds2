@@ -12,6 +12,8 @@ import { NotFoundComponent } from '../components/not-found/not-found.component';
 import { HeroDetailsComponent } from '../components/heroes/hero-details/hero-details.component';
 import { ItemDetailsComponent } from '../components/items/item-details/item-details.component';
 import { BuildDetailsComponent } from '../components/hero-builds/build-details/build-details.component';
+import { AuthGuard } from '../service/auth.guard';
+import { GuestGuard } from '../service/guest.guard';
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -21,10 +23,10 @@ const routes: Routes = [
     { path: 'items/:id', component: ItemDetailsComponent },
     { path: 'builds', component: HeroBuildsComponent },
     { path: 'builds/:id', component: BuildDetailsComponent },
-    { path: 'build-creator', component: BuildCreatorComponent },
-    { path: 'profile', component: ProfileComponent },
-    { path: 'login', component: LoginComponent },
-    { path: 'register', component: RegisterComponent },
+    { path: 'build-creator', component: BuildCreatorComponent, canActivate: [AuthGuard] },
+    { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+    { path: 'login', component: LoginComponent, canActivate: [GuestGuard] },
+    { path: 'register', component: RegisterComponent, canActivate: [GuestGuard] },
     { path: '**', component: NotFoundComponent }
 ];
 

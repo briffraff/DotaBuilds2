@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile, user, User } from '@angular/fire/auth';
+import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile, user, User , onAuthStateChanged} from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { inject } from '@angular/core';
 import { addDoc, collection, getDocs, query, where, Firestore } from '@angular/fire/firestore';
@@ -17,7 +17,24 @@ export class FirebaseAuthService {
     private auth = inject(Auth);
     private db = inject(Firestore);
 
-    constructor(private router: Router, private firestoreService: FirestoreService) { }
+    constructor(private router: Router, private firestoreService: FirestoreService) {
+        this.initializeAuthState()
+     }
+
+    initializeAuthState() {
+        onAuthStateChanged(this.auth, async (user) => {
+            if (user) {
+                this.setAuthState(true);
+                this.setUser(user);
+                await this.setFirestoreUserInfo(user.uid);
+                console.log("User is logged in:", user);
+            } else {
+                this.setAuthState(false);
+                this.setUser(null);
+                console.log("No user is logged in.");
+            }
+        });
+    }
 
     async register(username: string, email: string, password: string, playerPosition: string): Promise<User> {
         try {
