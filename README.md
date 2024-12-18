@@ -58,7 +58,7 @@ Login
 LOGGED USERS:
 
 Create Build
-![Create Build](./public/readme/createBuild.jpg)
+![Create Build](./public/readme/build-creator.jpg)
 
 User Profile
 ![User Profile](./public/readme/profile.jpg)

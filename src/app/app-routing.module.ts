@@ -15,6 +15,21 @@ import { BuildDetailsComponent } from '../components/hero-builds/build-details/b
 import { AuthGuard } from '../service/auth.guard';
 import { GuestGuard } from '../service/guest.guard';
 
+// const routes: Routes = [
+//     { path: '', component: HomeComponent },
+//     { path: 'heroes', component: HeroesComponent },
+//     { path: 'heroes/:id', component: HeroDetailsComponent },
+//     { path: 'items', component: ItemsComponent },
+//     { path: 'items/:id', component: ItemDetailsComponent },
+//     { path: 'builds', component: HeroBuildsComponent },
+//     { path: 'builds/:id', component: BuildDetailsComponent },
+//     { path: 'build-creator', component: BuildCreatorComponent, canActivate: [AuthGuard] },
+//     { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+//     { path: 'login', component: LoginComponent, canActivate: [GuestGuard] },
+//     { path: 'register', component: RegisterComponent, canActivate: [GuestGuard] },
+//     { path: '**', component: NotFoundComponent }
+// ];
+
 const routes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'heroes', component: HeroesComponent },
@@ -23,10 +38,10 @@ const routes: Routes = [
     { path: 'items/:id', component: ItemDetailsComponent },
     { path: 'builds', component: HeroBuildsComponent },
     { path: 'builds/:id', component: BuildDetailsComponent },
-    { path: 'build-creator', component: BuildCreatorComponent, canActivate: [AuthGuard] },
-    { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
-    { path: 'login', component: LoginComponent, canActivate: [GuestGuard] },
-    { path: 'register', component: RegisterComponent, canActivate: [GuestGuard] },
+    { path: 'build-creator', component: BuildCreatorComponent },
+    { path: 'profile', component: ProfileComponent },
+    { path: 'login', component: LoginComponent },
+    { path: 'register', component: RegisterComponent },
     { path: '**', component: NotFoundComponent }
 ];
 

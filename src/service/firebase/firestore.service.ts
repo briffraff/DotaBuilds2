@@ -1,21 +1,53 @@
 import { inject, Injectable } from '@angular/core';
-import { collection, collectionData, doc, Firestore, getDoc, getDocs, query, setDoc, where } from '@angular/fire/firestore';
+import { addDoc, collection, collectionData, doc, Firestore, getDoc, getDocs, query, setDoc, where } from '@angular/fire/firestore';
 import { map } from 'rxjs';
+import { FirebaseAuthService } from './firebaseAuth.service';
+
+interface Build {
+  creatorId: string;
+  heroName: string;
+  heroImageUrl: string;
+  items: Item[];
+}
+
+interface Item {
+  itemName: string;
+  itemImage: string;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class FirestoreService {
+  private firebaseService = inject(FirebaseAuthService);
 
-  private firestore = inject(Firestore);
+  async createBuild(buildData: { [key: string]: string }): Promise<void> {
+    const items: Item[] = [];
 
-  createBuild() {
+    Object.keys(buildData).forEach(key => {
+      if (key.startsWith('itemName') && buildData[key]) {
+        const index = key.replace('itemName', '');
+        items.push({
+          itemName: buildData[key],
+          itemImage: buildData[`itemImage${index}`]
+        });
+      }
+    });
 
+    const build: Build = {
+      creatorId: this.firebaseService.currentUser.uid, 
+      heroName: buildData['heroName'],
+      heroImageUrl: buildData['heroImage'],
+      items: items.filter(item => item.itemName && item.itemImage) 
+    };
+
+    // Записване във Firestore
+    const buildCollection = collection(this.firebaseService.db, 'builds');
+    await addDoc(buildCollection, build);
   }
 
   readBuild(collectionName: string) {
-    // let globalConstants = collection(this.fs, collectionName);
-    // return collectionData(globalConstants, { idField: 'id' });
+
   }
 
   updateBuild() {
@@ -25,37 +57,4 @@ export class FirestoreService {
   deleteBuild() {
 
   }
-
-  readFieldFromFirstDocument(collectionName: string, fieldName: string) {
-    // const globalConstants = collection(this.fs, collectionName);
-
-    // return collectionData(globalConstants, { idField: 'id' }).pipe(
-    //   map((documents: any[]) => documents[0]?.[fieldName] || null)
-    // );
-  }
-
-  addUserData(userId: string, userData: any): Promise<void> {
-    const userRef = doc(this.firestore, 'users', userId);
-    return setDoc(userRef, userData);
-  }
-
-  getFirestoreUserById = async (userId: string) => {
-    try {
-      const q = query(collection(this.firestore, "users"), where("uid", "==", userId));
-      const querySnapshot = await getDocs(q);
-
-      if (querySnapshot.empty) {
-        let errorMessage = "No such user document!";
-        throw new Error(errorMessage);
-      } else {
-        const userDoc = querySnapshot.docs[0];
-        return userDoc.data();
-        // return { ...userDoc.data(), id: userDoc.id };
-      }
-    } catch (error) {
-      console.log("Error fetching user: ", error);
-      throw error;
-    }
-
-  };
 }

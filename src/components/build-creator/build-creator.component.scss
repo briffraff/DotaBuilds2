@@ -1,3 +1,176 @@
-.build-creator {
-  padding: 2rem;
+form {
+  max-width: 800px;
+  margin: 20px auto;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.topic {
+  font-family: "oldDota2";
+  font-size: 5rem;
+}
+
+.build-info {
+  display: flex;
+  flex-direction: row;
+}
+
+.hero-section,
+.items-section {
+  max-width: 500px;
+  width: 400px;
+  margin-bottom: 20px;
+}
+
+.hero-section h3,
+.items-section h3 {
+  color: #1b68b9;
+  font-family: "oldDota2";
+  padding-bottom: 20px;
+}
+
+.hero-section label {
+  font-family: "oldDota2";
+}
+
+.hero-section input {
+  color: whitesmoke;
+  background-color: #273349;
+}
+
+.item {
+  margin-bottom: 15px;
+}
+
+.item-fields {
+  animation: fadeIn 0.3s ease-out;
+  margin-top: 10px;
+}
+
+.item-field {
+  margin-bottom: 10px;
+}
+
+label {
+  display: block;
+  margin: 5px 0;
+  font-weight: bold;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  border: 1px solid #1a1a1a;
+}
+
+.item-field:nth-child(1) input {
+  color: whitesmoke;
+  background-color: #1f1f1f;
+}
+
+.item-field:nth-child(2) input {
+  color: whitesmoke;
+  background-color: #1f1f1f;
+}
+
+.toggle-btn {
+  font-family: 'oldDota2';
+  width: 100px;
+  height: 30px;
+  position: relative;
+  overflow: hidden;
+  border: none;
+  border-radius: 5px;
+  text-align: center;
+  background-color: #dddddd;
+  color: rgb(3, 3, 3);
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.toggle-btn:hover {
+  transform: scale(1.1);
+  background-color: #0056b3;
+}
+
+.toggle-btn::before {
+  content: "+";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  color: rgb(255, 255, 255);
+  opacity: 0;
+  z-index: 2;
+  transition: opacity 0.3s ease;
+  background-color: #ffffff69;
+  border-radius: 5px;
+}
+
+.toggle-btn:hover::before {
+  opacity: 1;
+}
+
+.item-field label {
+  font-family: 'oldDota2';
+}
+
+.add-item-btn {
+  font-family: 'oldDota2';
+  background-color: #1e73c2;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-top: 10px;
+}
+
+.add-item-btn:hover {
+  background-color: #285dac;
+}
+
+.add-item-btn:disabled {
+  background-color: #d6d6d6;
+  cursor: not-allowed;
+}
+
+button[type="submit"] {
+  font-family: "oldDota2";
+  font-size: 18px;
+  width: 50%;
+  height: 60px;
+  background-color: #ebebeb;
+  color: black;
+  border: none;
+  border-radius: 0px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+button[type="submit"]:hover {
+  background-color: #d3d3d3;
+}
+
+/* Анимация за плавно показване на полетата */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

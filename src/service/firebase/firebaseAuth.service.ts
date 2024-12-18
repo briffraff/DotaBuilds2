@@ -3,7 +3,6 @@ import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signO
 import { Router } from '@angular/router';
 import { inject } from '@angular/core';
 import { addDoc, collection, getDocs, query, where, Firestore } from '@angular/fire/firestore';
-import { FirestoreService } from './firestore.service';
 import { signal } from '@angular/core';
 
 @Injectable({
@@ -14,10 +13,10 @@ export class FirebaseAuthService {
     firestoreUserInfo: any = null;
     private isAuth = signal(false);
 
-    private auth = inject(Auth);
-    private db = inject(Firestore);
+    auth = inject(Auth);
+    db = inject(Firestore);
 
-    constructor(private router: Router, private firestoreService: FirestoreService) {
+    constructor(private router: Router) {
         this.initializeAuthState()
      }
 
@@ -140,6 +139,26 @@ export class FirebaseAuthService {
         }
     }
 
+    getFirestoreUserById = async (userId: string) => {
+        try {
+            const q = query(collection(this.db, "users"), where("uid", "==", userId));
+            const querySnapshot = await getDocs(q);
+
+            if (querySnapshot.empty) {
+                let errorMessage = "No such user document!";
+                throw new Error(errorMessage);
+            } else {
+                const userDoc = querySnapshot.docs[0];
+                return userDoc.data();
+                // return { ...userDoc.data(), id: userDoc.id };
+            }
+        } catch (error) {
+            console.log("Error fetching user: ", error);
+            throw error;
+        }
+
+    };
+
     setUser(user: any) {
         this.currentUser = user;
     }
@@ -157,7 +176,7 @@ export class FirebaseAuthService {
     }
 
     async setFirestoreUserInfo(userId: any) {
-        this.firestoreUserInfo = await this.firestoreService.getFirestoreUserById(userId);
+        this.firestoreUserInfo = await this.getFirestoreUserById(userId);
     }
 
     getFirestoreUserInfo() {
