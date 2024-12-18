@@ -26,7 +26,7 @@ export class FirebaseAuthService {
                 this.setAuthState(true);
                 this.setUser(user);
                 await this.setFirestoreUserInfo(user.uid);
-                console.log("User is logged in:", user);
+                // console.log("User is logged in:", user);
             } else {
                 this.setAuthState(false);
                 this.setUser(null);
@@ -145,8 +145,9 @@ export class FirebaseAuthService {
             const querySnapshot = await getDocs(q);
 
             if (querySnapshot.empty) {
-                let errorMessage = "No such user document!";
-                throw new Error(errorMessage);
+                // let errorMessage = "No such user document!";
+                // throw new Error(errorMessage);
+                return '';
             } else {
                 const userDoc = querySnapshot.docs[0];
                 return userDoc.data();

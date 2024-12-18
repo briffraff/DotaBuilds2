@@ -5,6 +5,7 @@ import { FirebaseAuthService } from './firebaseAuth.service';
 
 interface Build {
   creatorId: string;
+  creator: string,
   heroName: string;
   heroImageUrl: string;
   items: Item[];
@@ -36,6 +37,7 @@ export class FirestoreService {
 
     const build: Build = {
       creatorId: this.firebaseService.currentUser.uid, 
+      creator: this.firebaseService.currentUser.displayName,
       heroName: buildData['heroName'],
       heroImageUrl: buildData['heroImage'],
       items: items.filter(item => item.itemName && item.itemImage) 

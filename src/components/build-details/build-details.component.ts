@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { titles } from '../../../config/titles';
+import { titles } from '../../config/titles';
 
 @Component({
   selector: 'app-build-details',

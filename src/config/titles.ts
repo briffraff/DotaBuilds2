@@ -7,7 +7,7 @@ export interface Titles {
     HeroDetails: string;
     Items: string;
     ItemDetails: string;
-    Builds: string;
+    AllBuilds: string;
     BuildDetails: string;
     BuildCreator: string;
     Profile: string;
@@ -22,7 +22,7 @@ export const titles: Titles = {
     HeroDetails: 'Hero Details Page',
     Items: 'Dota 2 Items Page',
     ItemDetails: 'Item Details Page',
-    Builds: 'All Builds Page',
+    AllBuilds: 'All Builds Page',
     BuildDetails: 'Build Details Page',
     BuildCreator: 'Create Build Page',
     Profile: 'User Profile Page'

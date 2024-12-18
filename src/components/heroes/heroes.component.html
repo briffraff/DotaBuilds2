@@ -2,7 +2,7 @@
     <h2 class="heroes-title">Heroes</h2>
 
     <div class="found-heroes" *ngIf="heroes && heroes.length > 0">
-        <div [routerLink]="['/heroes', hero.id]" class="hero-thumb" *ngFor="let hero of heroes">
+        <div [routerLink]="['/heroes/details', hero.id]" class="hero-thumb" *ngFor="let hero of heroes">
             <img [src]="getHeroImage(hero.name)" alt="{{ hero.localized_name }}" />
             <p>{{ hero.localized_name }}</p>
         </div>
