@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { addDoc, collection, collectionData, deleteDoc, doc, Firestore, getDoc, getDocs, query, setDoc, where } from '@angular/fire/firestore';
+import { addDoc, collection, collectionData, deleteDoc, doc, Firestore, getDoc, getDocs, query, setDoc, updateDoc, where } from '@angular/fire/firestore';
 import { from, map, Observable } from 'rxjs';
 import { FirebaseAuthService } from './firebaseAuth.service';
 
@@ -81,15 +81,25 @@ export class FirestoreService {
   }
 
   async updateBuild(buildId: string, buildData: any) {
-    
+    try {
+      const buildCollection = this.buildsCollectionRef;
+      const docRef = doc(buildCollection, buildId);
+      await updateDoc(docRef, buildData);
+      console.log('Build updated successfully!');
+    } catch (error) {
+      console.error('Error updating build:', error);
+    }
   }
 
   async deleteBuild(buildId: string) {
-    const docRef = doc(this.buildsCollectionRef, buildId);
-    if (docRef) {
-      await deleteDoc(docRef);
+    try {
+      const docRef = doc(this.buildsCollectionRef, buildId);
+      if (docRef) {
+        await deleteDoc(docRef);
+      }
+      console.log("Delete Build successfully")
+    } catch (error) {
+      console.log("Error delete build: ", error);
     }
-
-    console.log("Delete Build successfully")
   }
 }

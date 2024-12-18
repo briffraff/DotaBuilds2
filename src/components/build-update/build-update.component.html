@@ -1,0 +1,81 @@
+<div class="build-details" *ngIf="foundedBuild">
+
+    <div class="build-details-title">
+        <h3>Build Details</h3>
+    </div>
+
+    <div class="edit-mode">
+        Edit Mode
+    </div>
+
+    <div class="bg">
+
+        <div class="edit-popup" *ngIf="editField">
+            <label>Edit :</label>
+            <div class="popup-content">
+                <input type="text" [(ngModel)]="currentEditValue" />
+                <div class="popup-btn-section">
+                    <button class="pop-btn" (click)="applyEdit()">Save</button>
+                    <button class="pop-btn" (click)="closePopup()">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="creator-section">
+
+            <div *ngIf="isBuildOwner" class="btn-section">
+                <div class="btn-section">
+                    <button class="update-build-btn" type="button" (click)="toggleEditMode()">
+                        {{ isEditMode ? 'Exit Edit Mode' : 'Enter Edit Mode' }}
+                    </button>
+                </div>
+            </div>
+
+            <p class="creator-name">Created by: <span class="creator">{{ foundedBuild.creator }}</span></p>
+        </div>
+
+
+        <div class="hero-section">
+            <div class="item-container">
+                <div class="edit-overlay" *ngIf="isEditMode" (click)="openEditPopup(foundedBuild,'heroImageUrl')">
+                    <button class="edit-btn">+</button>
+                </div>
+                <img class="hero-image" [src]="foundedBuild.heroImageUrl" alt="{{ foundedBuild.heroName }}" />
+            </div>
+
+            <div class="item-container">
+                <div class="edit-overlay" *ngIf="isEditMode" (click)="openEditPopup(foundedBuild,'heroName')">
+                    <button class="edit-btn">+</button>
+                </div>
+                <h1 class="hero-name">{{ foundedBuild.heroName }}</h1>
+            </div>
+        </div>
+
+        <div class="items-section">
+            <h2>Items</h2>
+            <div class="items-list">
+                <div class="item" *ngFor="let item of foundedBuild.items; let i = index">
+                    <div class="item-container">
+
+                        <img class="item-image" [src]="item.itemImage" alt="{{ item.itemName }}" />
+
+                        <div class="edit-overlay" id="{{i}}" *ngIf="isEditMode"
+                            (click)="openEditPopup(item,'itemImage')">
+                            <button class="edit-btn">+</button>
+                        </div>
+                    </div>
+
+                    <div class="item-container">
+                        <p class="item-name">{{ item.itemName }}</p>
+
+                        <div class="edit-overlay" id="{{i}}" *ngIf="isEditMode"
+                            (click)="openEditPopup(item, 'itemName')">
+                            <button class="edit-btn">+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,1 +1,36 @@
-<p>build-details works!</p>
+<div class="build-details" *ngIf="foundedBuild">
+
+    <div class="build-details-title">
+        <h3>Build Details</h3>
+    </div>
+
+    <div class="bg">
+
+        <div class="creator-section">
+
+            <div *ngIf="isBuildOwner" class="btn-section">
+                <button type="button" class="update-build-btn" [routerLink]="['/builds/update', foundedBuild.id]">Edit Mode</button>
+                <button type="button" class="delete-build-btn" (click)="deleteBuild()">Delete</button>
+            </div>
+
+            <p class="creator-name">Created by: <span class="creator">{{ foundedBuild.creator }}</span></p>
+        </div>
+
+        <div class="hero-section">
+            <img class="hero-image" [src]="foundedBuild.heroImageUrl" alt="{{ foundedBuild.heroName }}" />
+            <h1 class="hero-name">{{ foundedBuild.heroName }}</h1>
+        </div>
+
+
+        <div class="items-section">
+            <h2>Items</h2>
+            <div class="items-list">
+                <div class="item" *ngFor="let item of foundedBuild.items">
+                    <img class="item-image" [src]="item.itemImage" alt="{{ item.itemName }}" />
+                    <p class="item-name">{{ item.itemName }}</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

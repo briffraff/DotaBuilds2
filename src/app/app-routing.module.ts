@@ -12,6 +12,7 @@ import { BuildDetailsComponent } from '../components/build-details/build-details
 import { NotFoundComponent } from '../components/not-found/not-found.component';
 import { HeroDetailsComponent } from '../components/heroes/hero-details/hero-details.component';
 import { ItemDetailsComponent } from '../components/items/item-details/item-details.component';
+import { BuildUpdateComponent } from '../components/build-update/build-update.component';
 import { AuthGuard } from '../service/auth.guard';
 import { GuestGuard } from '../service/guest.guard';
 
@@ -38,6 +39,7 @@ const routes: Routes = [
     { path: 'items/details/:id', component: ItemDetailsComponent },
     { path: 'builds', component: AllBuildsComponent },
     { path: 'builds/details/:id', component: BuildDetailsComponent },
+    { path: 'builds/update/:id', component: BuildUpdateComponent },
     { path: 'build-creator', component: BuildCreatorComponent },
     { path: 'profile', component: ProfileComponent },
     { path: 'login', component: LoginComponent },

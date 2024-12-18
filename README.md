@@ -38,7 +38,7 @@ Builds
 ![Builds](./public/readme/all-builds.jpg)
 
 Build Details
-![Build Details](./public/readme/buildDetails.jpg)
+![Build Details](./public/readme/build-details.jpg)
 
 No builds
 ![No Builds](./public/readme/no-builds.jpg)
@@ -63,12 +63,14 @@ LOGGED USERS:
 Create Build
 ![Create Build](./public/readme/build-creator.jpg)
 
+Build Details Auth + Delete
+![Build Details Auth](./public/readme/build-details-auth.jpg)
+
+Edit Build
+![Edit Build](./public/readme/update.jpg)
+
 User Profile
 ![User Profile](./public/readme/profile.jpg)
-
-Edit Delete Build
-![Edit Delete Build](./public/readme/editDeleteBuild.jpg)
-
 
 ## Build with 
 <img src="./public/readme/angular.svg" width="50px" height="50px">[Angular](https://angular.dev/)
