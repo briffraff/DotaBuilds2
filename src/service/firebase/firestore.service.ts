@@ -41,7 +41,6 @@ export class FirestoreService {
       items: items.filter(item => item.itemName && item.itemImage) 
     };
 
-    // Записване във Firestore
     const buildCollection = collection(this.firebaseService.db, 'builds');
     await addDoc(buildCollection, build);
   }
