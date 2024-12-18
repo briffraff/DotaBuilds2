@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
-import { addDoc, collection, collectionData, doc, Firestore, getDoc, getDocs, query, setDoc, where } from '@angular/fire/firestore';
-import { map } from 'rxjs';
+import { addDoc, collection, collectionData, deleteDoc, doc, Firestore, getDoc, getDocs, query, setDoc, where } from '@angular/fire/firestore';
+import { from, map, Observable } from 'rxjs';
 import { FirebaseAuthService } from './firebaseAuth.service';
 
 interface Build {
@@ -20,7 +20,9 @@ interface Item {
   providedIn: 'root'
 })
 export class FirestoreService {
+
   private firebaseService = inject(FirebaseAuthService);
+  private buildsCollectionRef = collection(this.firebaseService.db, 'builds');
 
   async createBuild(buildData: { [key: string]: string }): Promise<void> {
     const items: Item[] = [];
@@ -36,26 +38,58 @@ export class FirestoreService {
     });
 
     const build: Build = {
-      creatorId: this.firebaseService.currentUser.uid, 
+      creatorId: this.firebaseService.currentUser.uid,
       creator: this.firebaseService.currentUser.displayName,
       heroName: buildData['heroName'],
       heroImageUrl: buildData['heroImage'],
-      items: items.filter(item => item.itemName && item.itemImage) 
+      items: items.filter(item => item.itemName && item.itemImage)
     };
 
-    const buildCollection = collection(this.firebaseService.db, 'builds');
+    const buildCollection = this.buildsCollectionRef;
     await addDoc(buildCollection, build);
   }
 
-  readBuild(collectionName: string) {
-
+  async getAllBuilds() {
+    try {
+      const data = await getDocs(this.buildsCollectionRef);
+      const builds = data.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id
+      }));
+      return builds;
+    } catch (error) {
+      console.log("Error fetching builds: ", error);
+      throw error;
+    }
   }
 
-  updateBuild() {
 
+  async getBuildById(buildId: string) {
+    try {
+      const docRef = doc(this.firebaseService.db, "builds", buildId);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        return { ...docSnap.data(), id: docSnap.id };
+      } else {
+        console.log("No such document!");
+        return null;
+      }
+    } catch (error) {
+      console.log("Error fetching card: ", error);
+      throw error;
+    }
   }
 
-  deleteBuild() {
+  async updateBuild(buildId: string, buildData: any) {
+    
+  }
 
+  async deleteBuild(buildId: string) {
+    const docRef = doc(this.buildsCollectionRef, buildId);
+    if (docRef) {
+      await deleteDoc(docRef);
+    }
+
+    console.log("Delete Build successfully")
   }
 }
