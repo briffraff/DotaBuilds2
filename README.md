@@ -35,10 +35,13 @@ Item Details
 ![Item Details](./public/readme/itemDetails.jpg)
 
 Builds
-![Builds](./public/readme/builds.jpg)
+![Builds](./public/readme/all-builds.jpg)
 
 Build Details
 ![Build Details](./public/readme/buildDetails.jpg)
+
+No builds
+![No Builds](./public/readme/no-builds.jpg)
 
 No items
 ![No Items](./public/readme/no-items.jpg)

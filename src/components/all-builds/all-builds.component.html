@@ -1,5 +1,34 @@
-<p>all-builds works!</p>
+<!-- <p>all-builds works!</p>
 
 <div class="wrap">
     <button (click)="handleBuilds()" class="btn">Click</button>
+</div> -->
+
+
+<div class="all-builds">
+    <h2 class="builds-title">All Builds</h2>
+
+    <div class="found-builds" *ngIf="allBuilds && allBuilds.length > 0">
+        
+        <div [routerLink]="['/builds/details', build.id]" class="build-thumb" *ngFor="let build of allBuilds">
+
+            <div class="build-hero-section">
+                <p class="hero-name">{{ build.heroName }}</p>
+                <img class="hero-image"[src]="build.heroImageUrl" alt="{{ build.heroName }}" />
+            </div>
+
+            <div class="build-items-section">
+
+                <div class="item-thumb" *ngFor="let item of build.items">
+                    <img class="item-image"[src]="item.itemImage" alt="{{ build.itemName }}" />
+                    <p class="item-name">{{ item.itemName }}</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <p *ngIf="!allBuilds || !allBuilds.length" class="no-build">No Builds found.</p>
+    </div>
 </div>
