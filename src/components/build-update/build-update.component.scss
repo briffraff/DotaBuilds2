@@ -181,13 +181,13 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: #f39c12;
-  opacity: 0.9;
+  background: #f39d12d3;
   padding: 20px;
   width: 600px;
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
   display: flex;
+  width: 32%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -203,16 +203,25 @@
 }
 
 .popup-content input {
+  text-shadow: none;
+  filter: none;
   background-color: #242424;
+  border-radius: 5px;
+  font-size: 15px;
   border: none;
+  height: 26px;
   color: white;
   width: 69%;
   padding-left: 10px;
 }
 
+input:focus {
+    outline: none;
+}
+
 .edit-popup label {
   font-family: "oldDota2";
-  font-size: 18px;
+  font-size: 17px;
 }
 
 .popup-btn-section {

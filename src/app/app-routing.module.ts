@@ -16,21 +16,6 @@ import { BuildUpdateComponent } from '../components/build-update/build-update.co
 import { AuthGuard } from '../service/auth.guard';
 import { GuestGuard } from '../service/guest.guard';
 
-// const routes: Routes = [
-//     { path: '', component: HomeComponent },
-//     { path: 'heroes', component: HeroesComponent },
-// { path: 'heroes/details/:id', component: HeroDetailsComponent },
-// { path: 'items', component: ItemsComponent },
-// { path: 'items/details/:id', component: ItemDetailsComponent },
-// { path: 'builds', component: AllBuildsComponent },
-// { path: 'builds/details/:id', component: BuildDetailsComponent },
-//     { path: 'build-creator', component: BuildCreatorComponent, canActivate: [AuthGuard] },
-//     { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
-//     { path: 'login', component: LoginComponent, canActivate: [GuestGuard] },
-//     { path: 'register', component: RegisterComponent, canActivate: [GuestGuard] },
-//     { path: '**', component: NotFoundComponent }
-// ];
-
 const routes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'heroes', component: HeroesComponent },
@@ -39,11 +24,15 @@ const routes: Routes = [
     { path: 'items/details/:id', component: ItemDetailsComponent },
     { path: 'builds', component: AllBuildsComponent },
     { path: 'builds/details/:id', component: BuildDetailsComponent },
-    { path: 'builds/update/:id', component: BuildUpdateComponent },
-    { path: 'build-creator', component: BuildCreatorComponent },
-    { path: 'profile', component: ProfileComponent },
-    { path: 'login', component: LoginComponent },
-    { path: 'register', component: RegisterComponent },
+    { path: 'builds/update/:id', component: BuildUpdateComponent, canActivate: [AuthGuard] },
+    // { path: 'build-creator', component: BuildCreatorComponent },
+    // { path: 'profile', component: ProfileComponent },
+    // { path: 'login', component: LoginComponent },
+    // { path: 'register', component: RegisterComponent },
+    { path: 'build-creator', component: BuildCreatorComponent, canActivate: [AuthGuard] },
+    { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+    { path: 'login', component: LoginComponent, canActivate: [GuestGuard] },
+    { path: 'register', component: RegisterComponent, canActivate: [GuestGuard] },
     { path: '**', component: NotFoundComponent }
 ];
 
