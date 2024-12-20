@@ -18,6 +18,9 @@ export class BuildDetailsComponent {
   foundedBuild: any = {}
   isBuildOwner: boolean = false;
 
+  isDelete: boolean = false;
+  isDeletePopupVisible: boolean = false;
+
   constructor(
     private titleService: Title,
     private firestoreService: FirestoreService,
@@ -42,7 +45,7 @@ export class BuildDetailsComponent {
       if (!buildById) {
         return;
       }
-      
+
       await this.isOwner(this.foundedBuild.creatorId);
     }
 
@@ -69,5 +72,22 @@ export class BuildDetailsComponent {
 
     await this.firestoreService.deleteBuild(buildId);
     this.router.navigate(['/builds'])
+  }
+
+  openDeletePopup() {
+    this.isDeletePopupVisible = true;
+  }
+
+  applyDelete(): void {
+    this.isDelete = true;
+
+    if (this.isDelete) {
+      this.deleteBuild();
+      this.isDeletePopupVisible = false;
+    }
+  }
+
+  closeDeletePopup(): void {
+    this.isDeletePopupVisible = false;
   }
 }

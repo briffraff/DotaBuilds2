@@ -105,6 +105,7 @@ export class BuildUpdateComponent {
 
     if (JSON.stringify(this.originalBuild) === JSON.stringify(this.foundedBuild)) {
       console.log('No changes detected. Update skipped.');
+      this.router.navigate([`/builds/details/${this.foundedBuild.id}`]);
       return;
     }
 
