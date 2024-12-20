@@ -15,7 +15,7 @@ import { titles } from '../../config/titles';
   styleUrl: './build-update.component.scss'
 })
 export class BuildUpdateComponent {
-
+  originalBuild: any = {};
   isEditMode: boolean = true;
   editField: string = '';
   currentEditValue: string = '';
@@ -46,6 +46,7 @@ export class BuildUpdateComponent {
     if (buildId) {
       const buildById = await this.firestoreService.getBuildById(buildId);
       this.foundedBuild = buildById;
+      this.originalBuild = { ...buildById };
 
       if (!buildById) {
         return;
@@ -98,6 +99,16 @@ export class BuildUpdateComponent {
   }
 
   async updateBuild(): Promise<void> {
+
+    // console.log(this.originalBuild);
+    // console.log(this.foundedBuild);
+
+    if (JSON.stringify(this.originalBuild) === JSON.stringify(this.foundedBuild)) {
+      console.log('No changes detected. Update skipped.');
+      return;
+    }
+
+    console.log("Changes detected. Updating...");
     await this.firestoreService.updateBuild(this.foundedBuild.id, this.foundedBuild);
     this.router.navigate([`/builds/details/${this.foundedBuild.id}`]);
   }
