@@ -80,6 +80,32 @@ export class FirestoreService {
     }
   }
 
+  async getAllBuildsByUserId(userId: string): Promise<Build[]> {
+    try {
+      console.log('Fetching builds for user ID:', userId);
+      const q = query(this.buildsCollectionRef, where("creatorId", "==", userId));
+      const dataSnapshot = await getDocs(q);
+
+      const buildsByUser = dataSnapshot.docs.map((build) => {
+        const data = build.data();
+        return {
+          id: build.id,
+          creatorId: data['creatorId'],
+          creator: data['creator'],
+          heroName: data['heroName'],
+          heroImageUrl: data['heroImageUrl'],
+          items: data['items'],
+        } as Build;
+      });
+      // console.log(buildsByUser);
+      return buildsByUser;
+
+    } catch (error) {
+      console.error('Error fetching builds for this user:', error);
+      return [];
+    }
+  }
+
   async updateBuild(buildId: string, buildData: any) {
     try {
       const buildCollection = this.buildsCollectionRef;

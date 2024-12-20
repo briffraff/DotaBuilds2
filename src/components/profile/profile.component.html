@@ -10,9 +10,34 @@
             <div>Player Position: <a class="user-info-values">{{setPlayerPositionInfo()}}</a></div>
         </div>
     </div>
-    <div class="user-builds-topic">Your builds :</div>
-    
-    <div class="user-builds">
-        <p *ngIf="!user?.createdBuilds?.length" class="no-builds">No builds found.</p>
-    </div>
 </section>
+
+<div class="center">
+    <div class="all-builds">
+        <h2 class="builds-title">My Builds</h2>
+    
+        <div class="found-builds" *ngIf="buildsByUser && buildsByUser.length > 0">
+    
+            <div [routerLink]="['/builds/details', build.id]" class="build-thumb" *ngFor="let build of buildsByUser">
+    
+                <div class="build-hero-section">
+                    <p class="hero-name">{{ build.heroName }}</p>
+                    <img class="hero-image" [src]="build.heroImageUrl" alt="{{ build.heroName }}" />
+                </div>
+    
+                <div class="build-items-section">
+    
+                    <div class="item-thumb" *ngFor="let item of build.items">
+                        <img class="item-image" [src]="item.itemImage" alt="{{ build.itemName }}" />
+                        <p class="item-name">{{ item.itemName }}</p>
+                    </div>
+    
+                </div>
+            </div>
+        </div>
+    
+        <div>
+            <p *ngIf="!buildsByUser || !buildsByUser.length" class="no-build">No Builds found.</p>
+        </div>
+    </div>
+</div>

@@ -15,12 +15,12 @@ export class GuestGuard implements CanActivate {
   ) { }
 
 canActivate(): Observable<boolean | UrlTree> {
-    console.log('GuestGuard: Checking if user is authenticated');
+    // console.log('GuestGuard: Checking if user is authenticated');
     if (this.authService.isAuthenticated()) {
-      console.log('User is authenticated, redirecting to profile');
+      // console.log('User is authenticated, redirecting to profile');
       return of(this.router.createUrlTree(['/profile']));
     }
-    console.log('User is not authenticated, allowing access to login');
+    // // console.log('User is not authenticated, allowing access to login');
     return of(true);
 }
 }

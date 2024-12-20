@@ -48,11 +48,6 @@ export class BuildDetailsComponent {
 
   }
 
-  async updateBuild() {
-    // const updatedBuilds = await this.firestoreService.getAllBuilds();
-    // console.log(updatedBuilds);
-  }
-
   get isAuthenticated() {
     return this.authService.isAuthenticated();
   }
