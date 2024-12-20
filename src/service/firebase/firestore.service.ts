@@ -82,7 +82,6 @@ export class FirestoreService {
 
   async getAllBuildsByUserId(userId: string): Promise<Build[]> {
     try {
-      console.log('Fetching builds for user ID:', userId);
       const q = query(this.buildsCollectionRef, where("creatorId", "==", userId));
       const dataSnapshot = await getDocs(q);
 
