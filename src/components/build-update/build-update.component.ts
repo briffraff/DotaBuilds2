@@ -6,6 +6,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { FirestoreService } from '../../service/firebase/firestore.service';
 import { FirebaseAuthService } from '../../service/firebase/firebaseAuth.service';
 import { titles } from '../../config/titles';
+import { deepCopy, deepEqual } from '../../service/helpers/object';
 
 @Component({
   selector: 'app-build-update',
@@ -46,7 +47,7 @@ export class BuildUpdateComponent {
     if (buildId) {
       const buildById = await this.firestoreService.getBuildById(buildId);
       this.foundedBuild = buildById;
-      this.originalBuild = { ...buildById };
+      this.originalBuild = deepCopy(buildById);
 
       if (!buildById) {
         return;
@@ -86,7 +87,7 @@ export class BuildUpdateComponent {
 
   applyEdit(): void {
     if (this.selectedItem && this.editField) {
-      this.selectedItem[this.editField] = this.currentEditValue;
+      this.selectedItem[this.editField] = this.currentEditValue.trim();
       this.closePopup();
     }
   }
@@ -99,11 +100,10 @@ export class BuildUpdateComponent {
   }
 
   async updateBuild(): Promise<void> {
-
     // console.log(this.originalBuild);
     // console.log(this.foundedBuild);
 
-    if (JSON.stringify(this.originalBuild) === JSON.stringify(this.foundedBuild)) {
+    if (deepEqual(this.originalBuild, this.foundedBuild)) {
       console.log('No changes detected. Update skipped.');
       this.router.navigate([`/builds/details/${this.foundedBuild.id}`]);
       return;
