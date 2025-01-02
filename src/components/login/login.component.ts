@@ -3,7 +3,6 @@ import { Title } from '@angular/platform-browser';
 import { titles } from '../../config/titles';
 import { RouterModule } from '@angular/router';
 import { FirebaseAuthService } from '../../service/firebase/firebaseAuth.service';
-import { user } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';

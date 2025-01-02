@@ -3,8 +3,6 @@ import { RouterOutlet } from '@angular/router';
 import { FooterComponent } from '../components/footer/footer.component';
 import { Title } from '@angular/platform-browser';
 import { titles } from '../config/titles';
-import { FirestoreService } from '../service/firebase/firestore.service';
-import { FirebaseAuthService } from '../service/firebase/firebaseAuth.service';
 import { HeaderComponent } from '../components/header/header.component';
 
 @Component({
@@ -17,7 +15,6 @@ import { HeaderComponent } from '../components/header/header.component';
 export class AppComponent {
   constructor(
     private titleService: Title,
-    private authService: FirebaseAuthService
   ) { }
 
   ngOnInit(): void {

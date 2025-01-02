@@ -1,9 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile, user, User } from '@angular/fire/auth';
-import { Router } from '@angular/router';
-import { inject } from '@angular/core';
-import { addDoc, collection, getDocs, query, where, Firestore } from '@angular/fire/firestore';
-import { signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { forkJoin, map, Observable } from 'rxjs';
 import { Abilities, Hero } from '../../components/heroes/hero-details/hero-details.model';
