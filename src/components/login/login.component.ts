@@ -50,7 +50,7 @@ export class LoginComponent {
         try {
             const user = await this.authService.login(email, password);
             this.authService.setUser(user);
-            this.authService.setFirestoreUserInfo(user.uid);
+            this.authService.setFirestoreUser(user.uid);
             // console.log('Logged in user:', this.authService.currentUser);
             this.loginForm.reset();
             this.error = '';

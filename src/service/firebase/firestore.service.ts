@@ -37,8 +37,8 @@ export class FirestoreService {
     });
 
     const build: Build = {
-      creatorId: this.firebaseService.currentUser.uid,
-      creator: this.firebaseService.currentUser.displayName,
+      creatorId: this.firebaseService.getCurrentUser()?.uid,
+      creator: this.firebaseService.getCurrentUser()?.displayName,
       heroName: buildData['heroName'],
       heroImageUrl: buildData['heroImage'],
       items: items.filter(item => item.itemName && item.itemImage)

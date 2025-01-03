@@ -30,7 +30,7 @@ export class HomeComponent {
 
   ngOnInit(): void {
     this.titleService.setTitle(titles.Home);
-    this.user = this.authService.firestoreUserInfo;
+    this.user = this.authService.getFirestoreUser();
     // console.log(this.user);
   }
 

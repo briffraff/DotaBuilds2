@@ -1,37 +1,41 @@
-import { Injectable } from '@angular/core';
-import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile, User , onAuthStateChanged} from '@angular/fire/auth';
+import { Injectable, Signal } from '@angular/core';
+import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile, User, onAuthStateChanged, getAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { inject } from '@angular/core';
 import { addDoc, collection, getDocs, query, where, Firestore } from '@angular/fire/firestore';
 import { signal } from '@angular/core';
+import { BehaviorSubject, filter, Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
 })
 export class FirebaseAuthService {
-    currentUser: any = null;
-    firestoreUserInfo: any = null;
+    private currentUser = signal<User | null>(null);
+    private firestoreUser = signal<any | null>(null);
     private isAuth = signal(false);
+    private loading = signal(true);
+    private authState = new BehaviorSubject<boolean>(false);
 
+    
     auth = inject(Auth);
     db = inject(Firestore);
 
     constructor(private router: Router) {
         this.initializeAuthState()
-     }
+    }
 
     initializeAuthState() {
-        onAuthStateChanged(this.auth, async (user) => {
+        const auth = getAuth();
+        onAuthStateChanged(auth, async (user) => {
+            this.authState.next(user ? true : false);
+            this.setAuthState(user ? true : false);
+            this.setUser(user);
             if (user) {
-                this.setAuthState(true);
-                this.setUser(user);
-                await this.setFirestoreUserInfo(user.uid);
-                // console.log("User is logged in:", user);
+                await this.setFirestoreUser(user.uid);
             } else {
-                this.setAuthState(false);
-                this.setUser(null);
-                console.log("No user is logged in.");
+                await this.setFirestoreUser(null);
             }
+            this.loading.set(false);
         });
     }
 
@@ -59,9 +63,9 @@ export class FirebaseAuthService {
             };
 
             await addDoc(userCollectionRef, updatedUserInfo);
-            await this.setAuthState(true);
-            await this.setUser(userCredentials.user);
-            await this.setFirestoreUserInfo(userCredentials.user.uid);
+            this.setAuthState(true);
+            this.setUser(userCredentials.user);
+            await this.setFirestoreUser(userCredentials.user.uid);
             return userCredentials.user;
 
         } catch (error: any) {
@@ -94,9 +98,9 @@ export class FirebaseAuthService {
         try {
             const userCredentials = await signInWithEmailAndPassword(this.auth, email, password);
 
-            await this.setAuthState(true);
-            await this.setUser(userCredentials.user);
-            await this.setFirestoreUserInfo(userCredentials.user.uid);
+            this.setAuthState(true);
+            this.setUser(userCredentials.user);
+            await this.setFirestoreUser(userCredentials.user.uid);
             return userCredentials.user;
 
 
@@ -129,8 +133,8 @@ export class FirebaseAuthService {
         try {
             await signOut(this.auth);
             this.setAuthState(false);
-            this.firestoreUserInfo = '';
-            this.currentUser = null;
+            this.setFirestoreUser(null);
+            this.setUser(null);
             console.log("User signed out successfully");
             this.router.navigate(['/login']);
         } catch (error: any) {
@@ -160,27 +164,39 @@ export class FirebaseAuthService {
 
     };
 
-    setUser(user: any) {
-        this.currentUser = user;
+    isAuthReady(): Observable<boolean> {
+        return this.authState.asObservable().pipe(
+            filter(state => state !== null) 
+        );
     }
 
-    getCurrentUser() {
-        return this.currentUser;
+    isLoading(): boolean {
+        return this.authState.value == false;
+    }
+
+    setUser(user: any) {
+        this.currentUser.set(user);
+    }
+
+    getCurrentUser(): any {
+        return this.currentUser();
     }
 
     setAuthState(status: boolean) {
         this.isAuth.set(status);
     }
 
-    isAuthenticated() {
-        return this.isAuth();
+    isAuthenticated(): boolean {
+        return this.authState.value === true;
     }
 
-    async setFirestoreUserInfo(userId: any) {
-        this.firestoreUserInfo = await this.getFirestoreUserById(userId);
+
+    async setFirestoreUser(userId: any) {
+        const userinfo = await this.getFirestoreUserById(userId);
+        this.firestoreUser.set(userinfo);
     }
 
-    getFirestoreUserInfo() {
-        return this.firestoreUserInfo;
+    getFirestoreUser() {
+        return this.firestoreUser();
     }
 }

@@ -5,6 +5,7 @@ import { Title } from '@angular/platform-browser';
 import { titles } from '../config/titles';
 import { HeaderComponent } from '../components/header/header.component';
 
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -14,7 +15,7 @@ import { HeaderComponent } from '../components/header/header.component';
 })
 export class AppComponent {
   constructor(
-    private titleService: Title,
+    private titleService: Title
   ) { }
 
   ngOnInit(): void {

@@ -27,7 +27,7 @@ export class ProfileComponent {
 
     ngOnInit(): void {
         this.titleService.setTitle(titles.Profile);
-        this.user = this.authService.firestoreUserInfo;
+        this.user = this.authService.getFirestoreUser();
         this.buildsByUser = this.getAllBuildsByUserId();
     }
 

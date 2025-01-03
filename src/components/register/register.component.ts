@@ -61,7 +61,7 @@ export class RegisterComponent {
         try {
             const user = await this.authService.register(username, email, password, playerPosition)
             this.authService.setUser(user);
-            this.authService.setFirestoreUserInfo(user.uid);
+            this.authService.setFirestoreUser(user.uid);
             // console.log('Registered user:', this.authService.currentUser);
 
             this.registerForm.reset();

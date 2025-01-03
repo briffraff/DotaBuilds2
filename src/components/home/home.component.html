@@ -5,8 +5,10 @@
                 <h1>{{ welcome }}</h1>
                 <h1>to</h1>
                 <h1>{{ appName }}</h1>
-                <button [routerLink]="isAuthenticated ? '/build-creator' : '/login'" class="get-start-button"
-                    routerLink="/build-creator">Get Started Now</button>
+                <button [routerLink]="isAuthenticated ? '/build-creator' : '/login'" class="get-start-button">Get Started Now</button>
+
+                <!-- <button [routerLink]="'/login'" class="get-start-button">Login</button> -->
+
                 <p class="home-description">
                     Hey <span [class]="user ? 'username-highlight' : 'guest-highlight'">
                         {{ user ? user.username : 'Guest' }}
