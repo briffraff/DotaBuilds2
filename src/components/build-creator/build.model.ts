@@ -1,4 +1,5 @@
 export interface Build {
+    id: string;
     creatorId: string;
     heroName: string;
     heroImageUrl: string;

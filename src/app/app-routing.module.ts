@@ -15,7 +15,6 @@ import { ItemDetailsComponent } from '../components/items/item-details/item-deta
 import { BuildUpdateComponent } from '../components/build-update/build-update.component';
 import { AuthGuard } from '../service/auth.guard';
 import { GuestGuard } from '../service/guest.guard';
-import { AuthResolver } from '../service/helpers/authResolver.service';
 
 const routes: Routes = [
     { path: '', component: HomeComponent },

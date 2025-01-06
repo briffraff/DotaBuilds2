@@ -3,15 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { forkJoin, map, Observable } from 'rxjs';
 import { Abilities, Hero } from '../../components/heroes/hero-details/hero-details.model';
 
-export enum PlayerPosition {
-    Carry = 1,
-    Mid = 2,
-    Offlaner = 3,
-    SoftSupport = 4,
-    HardSupport = 5
-}
-
-const PlayerPositionDescriptions: { [key: number]: string } = {
+const PlayerPositionDescription: { [key: number]: string } = {
     1: 'Carry',
     2: 'Mid',
     3: 'Offlaner',
@@ -116,10 +108,10 @@ export class DotaService {
         return `${this.cdnCloudflareUrl}${imgUrl}`;
     }
 
-    getPositions() {
-        const positions = Object.keys(PlayerPositionDescriptions).map(key => ({
+    getPositions(): {id: number; desc: string;}[] {
+        const positions = Object.keys(PlayerPositionDescription).map(key => ({
             id: Number(key),
-            desc: PlayerPositionDescriptions[Number(key)]
+            desc: PlayerPositionDescription[Number(key)]
         }));
         
         return positions;
