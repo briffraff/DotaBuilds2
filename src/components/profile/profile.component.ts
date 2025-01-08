@@ -6,6 +6,7 @@ import { FirestoreService } from '../../service/firebase/firestore.service';
 import { CommonModule } from '@angular/common';
 import { DotaService } from '../../service/dota2/dota2.service';
 import { RouterModule } from '@angular/router';
+import { switchMap } from 'rxjs';
 
 @Component({
     selector: 'app-profile',
@@ -27,26 +28,24 @@ export class ProfileComponent implements OnInit{
 
     ngOnInit(): void {
         this.titleService.setTitle(titles.Profile);
-        
-        this.authService.getFirestoreUser().subscribe((user) => {
-            this.user = user;
-        })
-        
-        this.buildsByUser = this.getAllBuildsByUserId();
+
+        this.authService.getFirestoreUser().pipe(
+            switchMap((user) => {
+                this.user = user;
+                if (this.user?.uid) {
+                    return this.firestoreService.getAllBuildsByUserId(this.user.uid);
+                }
+                return [];
+            })
+        ).subscribe((builds) => {
+            this.buildsByUser = builds;
+        });
     }
 
     setPlayerPositionInfo() {
-        const positionId = this.user.playerPosition;
+        const positionId = this.user?.playerPosition;
         const positions = this.dotaService.getPositions()
         return `${positionId} | ${positions.find(pos => pos.id == positionId)?.desc}`;
     }
-
-    async getAllBuildsByUserId() {
-        const builds = await this.firestoreService.getAllBuildsByUserId(this.user.uid);
-        if (builds) {
-            this.buildsByUser = builds;
-        }
-    }
-
 }
 

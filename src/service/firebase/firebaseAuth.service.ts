@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { inject } from '@angular/core';
 import { addDoc, collection, getDocs, query, where, Firestore } from '@angular/fire/firestore';
 import { BehaviorSubject, filter, Observable } from 'rxjs';
+import { CookieService } from '../cookie.service';
 
 interface FirestoreUser {
     admin: boolean;
@@ -27,13 +28,19 @@ export class FirebaseAuthService {
     auth = inject(Auth);
     db = inject(Firestore);
 
-    constructor(private router: Router) {
+    constructor(private router: Router, private cookieService: CookieService) {
         this.initializeAuthState()
     }
 
     initializeAuthState() {
-        const auth = getAuth();
-        onAuthStateChanged(auth, async (user) => {
+        // const auth = getAuth();
+        onAuthStateChanged(this.auth, async (user) => {
+            const token = await this.getToken();
+            if (token) {
+                this.cookieService.setCookie('dota2authToken', token, 7);
+                console.log('Token saved in cookie');
+            }
+
             this.authState$$.next(!!user);
             this.currentUser$$.next(user);
             if (user) {
@@ -41,6 +48,7 @@ export class FirebaseAuthService {
             } else {
                 this.setFirestoreUser(null);
             }
+
         });
     }
 
@@ -70,6 +78,7 @@ export class FirebaseAuthService {
             await addDoc(userCollectionRef, updatedUserInfo);
             this.currentUser$$.next(userCredentials.user);
             await this.setFirestoreUser(userCredentials.user.uid);
+
             return userCredentials.user;
 
         } catch (error: any) {
@@ -103,8 +112,8 @@ export class FirebaseAuthService {
             const userCredentials = await signInWithEmailAndPassword(this.auth, email, password);
             this.currentUser$$.next(userCredentials.user);
             await this.setFirestoreUser(userCredentials.user.uid);
-            return userCredentials.user;
 
+            return userCredentials.user;
 
         } catch (error: any) {
             let errorMessage = "";
@@ -134,12 +143,26 @@ export class FirebaseAuthService {
             await signOut(this.auth);
             this.currentUser$$.next(null);
             this.setFirestoreUser(null);
+
+            this.cookieService.deleteCookie('dota2authToken');
+
             console.log("User signed out successfully");
             this.router.navigate(['/login']);
         } catch (error: any) {
             console.log("Error signing out:", error.message);
             throw new Error("Error signing out");
         }
+    }
+
+
+    checkAuth(): boolean {
+        const token = this.cookieService.getCookie('dota2authToken');
+        if (token) {
+            console.log('User is authenticated:', token);
+            return true;
+        }
+        console.log('No auth token found! Redirect to login...');
+        return false;
     }
 
     getFirestoreUserById = async (userId: string) => {
@@ -185,4 +208,13 @@ export class FirebaseAuthService {
     getFirestoreUser(): Observable<any | null> {
         return this.firestoreUser$$.asObservable();
     }
+
+    async getToken() {
+        const currentUser = this.auth.currentUser;
+        if (currentUser) {
+            return await currentUser.getIdToken();
+        }
+        return null;
+    }
+
 }

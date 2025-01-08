@@ -1,27 +1,19 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { FirebaseAuthService } from './firebase/firebaseAuth.service';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  constructor(
-    private authService: FirebaseAuthService,
-    private router: Router
-  ) { }
+  constructor(private authService: FirebaseAuthService, private router: Router) { }
 
-  canActivate(): Observable<boolean> {
-    return this.authService.isAuthenticated().pipe(
-      map((isAuth: boolean) => {
-        if (!isAuth) {
-          this.router.navigate(['/login']);
-          return false;
-        }
-        return true;
-      })
-    );
+  canActivate(): boolean {
+    const isAuthenticated = this.authService.checkAuth(); 
+    if (!isAuthenticated) {
+      this.router.navigate(['/login']); 
+      return false;
+    }
+    return true; 
   }
 }
