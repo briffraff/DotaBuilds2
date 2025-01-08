@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { titles } from '../../config/titles';
 import { FirebaseAuthService } from '../../service/firebase/firebaseAuth.service';
@@ -14,7 +14,7 @@ import { RouterModule } from '@angular/router';
     templateUrl: './profile.component.html',
     styleUrl: './profile.component.scss'
 })
-export class ProfileComponent {
+export class ProfileComponent implements OnInit{
     user: any
     buildsByUser: any;
 
@@ -27,7 +27,11 @@ export class ProfileComponent {
 
     ngOnInit(): void {
         this.titleService.setTitle(titles.Profile);
-        this.user = this.authService.getFirestoreUser();
+        
+        this.authService.getFirestoreUser().subscribe((user) => {
+            this.user = user;
+        })
+        
         this.buildsByUser = this.getAllBuildsByUserId();
     }
 

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed } from '@angular/core';
+import { Component, computed, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FirebaseAuthService } from '../../service/firebase/firebaseAuth.service';
 
@@ -10,13 +10,16 @@ import { FirebaseAuthService } from '../../service/firebase/firebaseAuth.service
     templateUrl: './header.component.html',
     styleUrl: './header.component.scss'
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
     menuOpen: boolean = false;
+    isAuthenticated: boolean = false;
 
     constructor(private authService: FirebaseAuthService) { }
 
-    get isAuthenticated() {
-        return this.authService.isAuthenticated();
+    ngOnInit(): void {
+        this.authService.isAuthenticated().subscribe((isAuth) => {
+            this.isAuthenticated = isAuth;
+        });
     }
 
     toggleMenu() {

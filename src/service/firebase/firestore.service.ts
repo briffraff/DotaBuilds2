@@ -1,6 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, query, updateDoc, where } from '@angular/fire/firestore';
 import { FirebaseAuthService } from './firebaseAuth.service';
+import { firstValueFrom } from 'rxjs';
 
 interface Build {
   creatorId: string;
@@ -36,9 +37,18 @@ export class FirestoreService {
       }
     });
 
+    const currentUser = await firstValueFrom(this.firebaseService.getCurrentUser());
+
+    if (!currentUser) {
+      throw new Error('User is not authenticated. Cannot create a build without a valid user.');
+    }
+
+    const creatorId = currentUser.uid; 
+    const creatorName = currentUser.displayName || 'Unknown';
+
     const build: Build = {
-      creatorId: this.firebaseService.getCurrentUser()?.uid,
-      creator: this.firebaseService.getCurrentUser()?.displayName,
+      creatorId: creatorId,
+      creator: creatorName,
       heroName: buildData['heroName'],
       heroImageUrl: buildData['heroImage'],
       items: items.filter(item => item.itemName && item.itemImage)
@@ -47,6 +57,7 @@ export class FirestoreService {
     const buildCollection = this.buildsCollectionRef;
     await addDoc(buildCollection, build);
   }
+
 
   async getAllBuilds() {
     try {
@@ -103,7 +114,7 @@ export class FirestoreService {
       return [];
     }
   }
-  
+
 
   async updateBuild(buildId: string, buildData: any) {
     try {

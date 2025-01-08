@@ -63,7 +63,11 @@ export class BuildUpdateComponent {
   }
 
   private async isOwner(creatorId: string) {
-    const userId = this.authService.getCurrentUser()?.uid;
+    let userId: string | undefined = '';
+
+    this.authService.getCurrentUser().subscribe((user) => {
+      userId = user?.uid;
+    });
 
     if (userId === creatorId) {
       this.isBuildOwner = true;

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { titles } from '../../config/titles';
 import { FirestoreService } from '../../service/firebase/firestore.service';
@@ -13,13 +13,15 @@ import { FirebaseAuthService } from '../../service/firebase/firebaseAuth.service
   templateUrl: './build-details.component.html',
   styleUrl: './build-details.component.scss'
 })
-export class BuildDetailsComponent {
+export class BuildDetailsComponent implements OnInit {
 
   foundedBuild: any = {}
   isBuildOwner: boolean = false;
 
   isDelete: boolean = false;
   isDeletePopupVisible: boolean = false;
+
+  isAuthenticated: boolean = false;
 
   constructor(
     private titleService: Title,
@@ -31,6 +33,11 @@ export class BuildDetailsComponent {
 
   ngOnInit(): void {
     this.titleService.setTitle(titles.BuildDetails);
+    
+    this.authService.isAuthenticated().subscribe((isAuth) => {
+      this.isAuthenticated = isAuth;
+    });
+
     this.handleBuildById();
   }
 
@@ -51,12 +58,13 @@ export class BuildDetailsComponent {
 
   }
 
-  get isAuthenticated() {
-    return this.authService.isAuthenticated();
-  }
 
   private async isOwner(creatorId: string) {
-    const userId = this.authService.getCurrentUser()?.uid;
+    let userId: string | undefined = '';
+
+    this.authService.getCurrentUser().subscribe((user) => {
+      userId = user?.uid;
+    });
 
     if (userId === creatorId) {
       this.isBuildOwner = true;

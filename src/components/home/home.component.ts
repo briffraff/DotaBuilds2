@@ -23,6 +23,8 @@ export class HomeComponent {
 
   user: any;
 
+  isAuthenticated: boolean = false;
+
   constructor(
     private titleService: Title,
     private authService: FirebaseAuthService,
@@ -30,11 +32,16 @@ export class HomeComponent {
 
   ngOnInit(): void {
     this.titleService.setTitle(titles.Home);
-    this.user = this.authService.getFirestoreUser();
+
+    this.authService.getFirestoreUser().subscribe((firestoreUser) => {
+      this.user = firestoreUser;
+    })
+    
     // console.log(this.user);
+
+    this.authService.isAuthenticated().subscribe((isAuth) => {
+      this.isAuthenticated = isAuth;
+    });
   }
 
-  get isAuthenticated() {
-    return this.authService.isAuthenticated();
-  }
 }
