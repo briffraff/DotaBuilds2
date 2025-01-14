@@ -37,7 +37,7 @@ export class FirebaseAuthService {
         onAuthStateChanged(this.auth, async (user) => {
             const token = await this.getToken();
             if (token) {
-                this.cookieService.setCookie('dota2authToken', token, 7);
+                this.cookieService.setCookie('dota2authToken', token, 2);
                 console.log('Token saved in cookie');
             }
 
@@ -183,7 +183,6 @@ export class FirebaseAuthService {
             console.log("Error fetching user: ", error);
             throw error;
         }
-
     };
 
     isAuthenticated(): Observable<boolean> {

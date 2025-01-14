@@ -4,10 +4,10 @@
             PROFILE
         </div>
         <div class="user-info">
-            <div>Username: <a class="user-info-values">{{user?.username}}</a></div>
-            <div>Email: <a class="user-info-values">{{user?.email}}</a></div>
-            <div>Role: <a class="user-info-values">{{ user ? (user.admin == false ? "User" : "Admin") : "" }}</a></div>
-            <div>Player Position: <a class="user-info-values">{{setPlayerPositionInfo()}}</a></div>
+            <div>Username: <a class="user-info-values">{{ user?.username }}</a></div>
+            <div>Email: <a class="user-info-values">{{ user?.email }}</a></div>
+            <div>Role: <a class="user-info-values">{{ user ? (user.admin ? "Admin" : "User") : "" }}</a></div>
+            <div>Player Position: <a class="user-info-values">{{ setPlayerPositionInfo()}}</a></div>
         </div>
     </div>
 </section>
@@ -15,29 +15,30 @@
 <div class="center">
     <div class="all-builds">
         <h2 class="builds-title">My Builds</h2>
-    
-        <div class="found-builds" *ngIf="buildsByUser && buildsByUser.length > 0">
-    
-            <div [routerLink]="['/builds/details', build.id]" class="build-thumb" *ngFor="let build of buildsByUser">
-    
+
+        @if (buildsByUser && buildsByUser.length > 0) {
+        <div class="found-builds">
+            @for (build of buildsByUser; track build.name) {
+            <div [routerLink]="['/builds/details', build.id]" class="build-thumb">
                 <div class="build-hero-section">
                     <p class="hero-name">{{ build.heroName }}</p>
                     <img class="hero-image" [src]="build.heroImageUrl" alt="{{ build.heroName }}" />
                 </div>
-    
                 <div class="build-items-section">
-    
-                    <div class="item-thumb" *ngFor="let item of build.items">
-                        <img class="item-image" [src]="item.itemImage" alt="{{ build.itemName }}" />
+                    @for (item of build.items; track item.name) {
+                    <div class="item-thumb">
+                        <img class="item-image" [src]="item.itemImage" alt="{{ item.itemName }}" />
                         <p class="item-name">{{ item.itemName }}</p>
                     </div>
-    
+                    }
                 </div>
             </div>
+            }
         </div>
-    
-        <div>
-            <p *ngIf="!buildsByUser || !buildsByUser.length" class="no-build">No Builds found.</p>
-        </div>
+        }
+
+        @if (!buildsByUser || !buildsByUser.length) {
+        <p class="no-build">No Builds found.</p>
+        }
     </div>
 </div>

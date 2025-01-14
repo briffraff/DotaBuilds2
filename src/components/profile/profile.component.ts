@@ -11,7 +11,7 @@ import { switchMap } from 'rxjs';
 @Component({
     selector: 'app-profile',
     standalone: true,
-    imports: [CommonModule, RouterModule],
+    imports: [RouterModule],
     templateUrl: './profile.component.html',
     styleUrl: './profile.component.scss'
 })
